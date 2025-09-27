@@ -2,28 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="pageTitle">Tool Details</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Tool Details - Assistive Tools GCC</title>
   <link href="https://fonts.googleapis.com/css2?family=Alan+Sans&family=Rubik&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <header>
-    <h1 id="site-title"></h1>
-    <div class="top-controls">
-      <select id="languageSwitcher" onchange="setLanguage(this.value)">
-        <option value="en">English</option>
-        <option value="ar">العربية</option>
-      </select>
-    </div>
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="index.html" class="nav-link active">Tools</a></li>
+        <li>
+          <select id="langSelect" onchange="setLanguage(this.value)">
+            <option value="en">EN</option>
+            <option value="ar">AR</option>
+          </select>
+        </li>
+      </ul>
+    </nav>
   </header>
 
-  <main id="toolDetails" class="tool-details"></main>
+  <main>
+    <div class="tool-details">
+      <h2 id="tool-title">Tool Title</h2>
+      <p id="tool-description">Tool description goes here...</p>
 
-  <footer>
-    &copy; 2025 Assistive Technologies GCC
-  </footer>
+      <div class="button-row">
+        <div class="button-group">
+          <button class="tool-btn" onclick="shareTool()">Share</button>
+          <button class="tool-btn" onclick="printTool()">Print</button>
+        </div>
+      </div>
+
+      <h3>Comments</h3>
+      <form id="commentForm">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" placeholder="Phone" required>
+        <textarea name="comment" placeholder="Your comment" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+
+      <div id="commentsContainer"></div>
+    </div>
+  </main>
 
   <script src="script-tool.js"></script>
 </body>
