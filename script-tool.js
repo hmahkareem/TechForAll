@@ -1,186 +1,126 @@
-// Tools data (shared comments, bilingual titles/descriptions)
-const toolsData = [
-  { 
-    title: { en: "Tool A", ar: "الأداة أ" },
-    desc: { en: "Helps students with Dyslexia improve reading.", ar: "تساعد الطلاب الذين يعانون من عسر القراءة على تحسين مهارات القراءة." },
-    category: "dyslexia",
-    comments: []
-  },
-  { 
-    title: { en: "Tool B", ar: "الأداة ب" },
-    desc: { en: "Supports Dysgraphia with handwriting assistance.", ar: "تدعم عسر الكتابة من خلال المساعدة في الكتابة اليدوية." },
-    category: "dysgraphia",
-    comments: []
-  },
-  { 
-    title: { en: "Tool C", ar: "الأداة ج" },
-    desc: { en: "Speech support software for Dysphasia.", ar: "برنامج دعم النطق لاضطراب الكلام." },
-    category: "dysphasia",
-    comments: []
-  },
-  { 
-    title: { en: "Tool D", ar: "الأداة د" },
-    desc: { en: "Enhances listening for Auditory Processing Disorder.", ar: "يعزز الاستماع لاضطراب المعالجة السمعية." },
-    category: "auditory",
-    comments: []
-  },
-  { 
-    title: { en: "Tool E", ar: "الأداة هـ" },
-    desc: { en: "Another great app for Dyslexia learners.", ar: "تطبيق آخر رائع لمتعلمي عسر القراءة." },
-    category: "dyslexia",
-    comments: []
-  }
-];
-
-const translations = {
-  en: {
-    addComment: "Add Your Comment",
-    name: "Name",
-    email: "Email",
-    phone: "Phone",
-    comment: "Write your comment here...",
-    share: "Share",
-    print: "Print",
-    submit: "Submit",
-    prevComments: "Previous Comments",
-    noComments: "No comments yet.",
-    fillAll: "Please fill in all fields.",
-    success: "Your feedback has been received. Thank you!"
-  },
-  ar: {
-    addComment: "أضف تعليقك",
-    name: "الاسم",
-    email: "البريد الإلكتروني",
-    phone: "رقم الهاتف",
-    comment: "اكتب تعليقك هنا...",
-    share: "مشاركة",
-    print: "طباعة",
-    submit: "إرسال",
-    prevComments: "التعليقات السابقة",
-    noComments: "لا توجد تعليقات بعد.",
-    fillAll: "يرجى ملء جميع الحقول.",
-    success: "تم استلام تعليقك. شكرًا لك!"
-  }
+// =======================
+// Firebase Setup
+// =======================
+const firebaseConfig = {
+  apiKey: "AIzaSyCy3M2abj-mcJLjOg4fcsJZzZrh_QgpDiE",
+  authDomain: "assistivetoolsgcc.firebaseapp.com",
+  projectId: "assistivetoolsgcc",
+  storageBucket: "assistivetoolsgcc.firebasestorage.app",
+  messagingSenderId: "124516142353",
+  appId: "1:124516142353:web:b68cae144a913bdd4350b0",
+  measurementId: "G-S2JSHME8EL"
 };
 
-let currentLang = "en";
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-// Get tool ID from URL
-function getToolId() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("id") || 0;
-}
+// =======================
+// Language Handling
+// =======================
+let currentLang = 'en';
 
-// Initialize page
 function setLanguage(lang){
   currentLang = lang;
-
-  // Set <html> lang attribute for CSS
   document.documentElement.lang = lang;
-
-  // Set page direction
-  document.body.style.direction = lang === "ar" ? "rtl" : "ltr";
-
-
-  const id = getToolId();
-  const tool = toolsData[id];
-  const t = translations[lang];
-
-  document.getElementById("site-title").innerText = tool.title[lang];
-
-  const container = document.getElementById("toolDetails");
-
-  container.innerHTML = `
-    <h2>${tool.title[lang]}</h2>
-    <p>${tool.desc[lang]}</p>
-
-    <h3>${t.addComment}</h3>
-
-    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
-      <input type="text" id="userName" placeholder="${t.name}" style="flex:1; padding:8px;">
-      <input type="email" id="userEmail" placeholder="${t.email}" style="flex:1; padding:8px;">
-      <input type="tel" id="userPhone" placeholder="${t.phone}" style="flex:1; padding:8px;">
-    </div>
-
-    <textarea id="feedback" placeholder="${t.comment}" style="width:100%; padding:8px;"></textarea>
-
-    <div style="margin-top:10px; display:flex; justify-content:space-between; flex-wrap:wrap;">
-  <div>
-    <button onclick="shareTool()">${t.share}</button>
-    <button onclick="printTool()">${t.print}</button>
-  </div>
-  <div>
-    <button onclick="submitFeedback()">${t.submit}</button>
-  </div>
-</div>
-
-    <h3 style="margin-top:25px;">${t.prevComments}</h3>
-    <div id="commentsList"></div>
-
-    <div id="feedbackMsg" style="margin-top:10px;color:green;"></div>
-  `;
-
-  renderComments(tool);
+  document.body.style.direction = lang === 'ar' ? 'rtl' : 'ltr';
+  loadTool();
 }
 
-// Render comments
-function renderComments(tool){
-  const commentsContainer = document.getElementById("commentsList");
-  commentsContainer.innerHTML = "";
+// =======================
+// Tool Data (Example)
+// =======================
+const toolsData = [
+  { title: { en: "Tool A", ar: "الأداة أ" }, description: { en: "Description A", ar: "الوصف أ" } },
+  { title: { en: "Tool B", ar: "الأداة ب" }, description: { en: "Description B", ar: "الوصف ب" } },
+];
 
-  if(tool.comments.length === 0){
-    commentsContainer.innerHTML = `<p>${translations[currentLang].noComments}</p>`;
+// Get tool ID from URL
+const urlParams = new URLSearchParams(window.location.search);
+const toolId = urlParams.get('id') || 0;
+
+// Load Tool Info
+function loadTool(){
+  const tool = toolsData[toolId];
+  document.getElementById('tool-title').innerText = tool.title[currentLang];
+  document.getElementById('tool-description').innerText = tool.description[currentLang];
+}
+
+// =======================
+// Share & Print
+// =======================
+function shareTool(){
+  alert("Share functionality can be implemented here.");
+}
+
+function printTool(){
+  window.print();
+}
+
+// =======================
+// Comments
+// =======================
+const commentForm = document.getElementById("commentForm");
+const commentsContainer = document.getElementById("commentsContainer");
+
+commentForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = commentForm.name.value.trim();
+  const email = commentForm.email.value.trim();
+  const phone = commentForm.phone.value.trim();
+  const comment = commentForm.comment.value.trim();
+
+  if(!name || !email || !phone || !comment){
+    alert("Please fill in all fields.");
     return;
   }
 
-  tool.comments.forEach(c=>{
+  try {
+    await db.collection("comments").add({
+      toolId: toolId,
+      name,
+      email,
+      phone,
+      comment,
+      date: new Date()
+    });
+
+    alert("Comment submitted successfully!");
+    commentForm.reset();
+    loadComments();
+  } catch (error) {
+    console.error("Error adding comment: ", error);
+    alert("Failed to submit comment.");
+  }
+});
+
+async function loadComments(){
+  commentsContainer.innerHTML = "";
+  const snapshot = await db.collection("comments")
+    .where("toolId", "==", parseInt(toolId))
+    .orderBy("date","desc")
+    .get();
+
+  if(snapshot.empty){
+    commentsContainer.innerHTML = currentLang === 'ar' ? "<p>لا توجد تعليقات بعد.</p>" : "<p>No comments yet.</p>";
+    return;
+  }
+
+  snapshot.forEach(doc => {
+    const data = doc.data();
     const div = document.createElement("div");
+    div.classList.add("comment");
     div.style.borderBottom = "1px solid #ccc";
-    div.style.padding = "8px 0";
-    div.innerHTML = `<strong>${c.name}</strong> (${c.date})<br>Email: ${c.email} | Phone: ${c.phone}<br>${c.text}`;
+    div.style.padding = "10px 0";
+    div.innerHTML = `
+      <p><strong>${data.name}</strong> (${data.email}, ${data.phone})</p>
+      <p>${data.comment}</p>
+    `;
     commentsContainer.appendChild(div);
   });
 }
 
-// Share URL
-function shareTool(){
-  navigator.clipboard.writeText(window.location.href).then(()=>{
-    alert(currentLang === "ar" ? "تم نسخ رابط الأداة!" : "Tool URL copied!");
-  });
-}
-
-// Print
-function printTool(){ window.print(); }
-
-// Submit feedback
-function submitFeedback(){
-  const name = document.getElementById("userName").value.trim();
-  const email = document.getElementById("userEmail").value.trim();
-  const phone = document.getElementById("userPhone").value.trim();
-  const feedback = document.getElementById("feedback").value.trim();
-  const msg = document.getElementById("feedbackMsg");
-  const id = getToolId();
-  const tool = toolsData[id];
-
-  if(!name || !email || !phone || !feedback){
-    msg.style.color = "red";
-    msg.innerText = translations[currentLang].fillAll;
-    return;
-  }
-
-  const date = new Date().toLocaleString();
-  tool.comments.push({ name, email, phone, text: feedback, date });
-
-  document.getElementById("userName").value = "";
-  document.getElementById("userEmail").value = "";
-  document.getElementById("userPhone").value = "";
-  document.getElementById("feedback").value = "";
-
-  msg.style.color = "green";
-  msg.innerText = translations[currentLang].success;
-
-  renderComments(tool);
-}
-
-// Initialize page
-setLanguage(currentLang);
+// Initial load
+loadTool();
+loadComments();
