@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About - Assistive Tools GCC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Alan+Sans&family=Rubik&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link active">About</a></li>
+        <li><a href="index.html" class="nav-link">Tools</a></li>
+        <li>
+          <select id="langSelect" onchange="changeLang(this.value)">
+            <option value="en">EN</option>
+            <option value="ar">AR</option>
+          </select>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1 id="about-title">About This Project</h1>
+    <p id="about-text">
+      This website collects assistive technology tools available in GCC countries,
+      helping individuals with learning disabilities such as Dyslexia, Dysgraphia,
+      Dysphasia, and Auditory Processing Disorder. Users can browse tools, see details,
+      and leave feedback.
+    </p>
+  </main>
+
+  <script src="about.js"></script>
+</body>
+</html>
