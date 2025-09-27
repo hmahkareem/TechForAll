@@ -2,31 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Assistive Tools GCC</title>
-  <link href="https://fonts.googleapis.com/css2?family=Alan+Sans&family=Rubik&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle"></title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Alan+Sans&family=Rubik&display=swap" rel="stylesheet">
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <header>
-    <nav>
-      <ul class="nav-menu">
-        <li><a href="index.html" class="nav-link active">Home</a></li>
-        <li><a href="about.html" class="nav-link">About</a></li>
-      </ul>
-      <select id="langSelect" onchange="setLanguage(this.value)">
-        <option value="en">EN</option>
-        <option value="ar">AR</option>
+    <h1 id="site-title"></h1>
+    <div class="top-controls">
+      <input type="text" id="searchBar">
+      <select id="languageSwitcher" onchange="setLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="ar">العربية</option>
       </select>
-    </nav>
+    </div>
   </header>
 
-  <main>
-    <div id="toolContainer"></div>
-  </main>
+  <!-- CATEGORIES -->
+  <nav class="categories" id="categoryButtons"></nav>
+
+  <!-- TOOLS GRID -->
+  <main id="toolsList" class="cards-grid"></main>
 
   <script src="script.js"></script>
 </body>
