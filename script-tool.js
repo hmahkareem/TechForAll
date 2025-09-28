@@ -41,6 +41,8 @@ const translations = {
     fillAll: "Please fill in all fields.",
     success: "Your feedback has been received. Thank you!",
     siteTitle: "Assistive Technologies in GCC",
+    home: "Home",
+    aboutbtn: "About",
   },
   ar: {
     addComment: "أضف تعليقك",
@@ -56,6 +58,8 @@ const translations = {
     fillAll: "يرجى ملء جميع الحقول.",
     success: "تم استلام تعليقك. شكرًا لك!",
     siteTitle: "التقنيات المساعدة في الخليج",
+    home: "الرئيسية",
+    aboutbtn: "من أنا",
   }
 };
 
@@ -82,6 +86,8 @@ function setLanguage(lang){
   const t = translations[lang];
 
   document.getElementById("site-title").innerText = t.siteTitle;
+  document.getElementById("homeBtn").innerText = t.home;
+  document.getElementById("aboutBtn").innerText = t.aboutbtn;
 
   const container = document.getElementById("toolDetails");
 

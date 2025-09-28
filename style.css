@@ -743,4 +743,120 @@ header h1 {
   align-items: start;   /* ✅ ensures cards shrink to their content */
 }
 
+/* Logo + Title container */
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-logo {
+  height: 40px;          /* ✅ adjusts size */
+  width: auto;
+  border-radius: 6px;    /* optional rounded edges */
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--header-text);
+}
+
+.site-logo {
+  height: 70px;         /* ✅ larger logo */
+  width: auto;
+  border-radius: 8px;   /* optional, keeps smooth edges */
+}
+
+header h1 {
+  font-size: 1.8rem;    /* ✅ bigger title text */
+  font-weight: 700;     /* make title bold */
+  color: var(--header-text);
+}
+
+/* Logo + Title inline */
+.logo-title {
+  display: flex;
+  align-items: center;   /* ✅ keeps them vertically centered */
+  gap: 12px;             /* space between logo and title */
+}
+
+/* Logo size */
+.site-logo {
+  height: 70px;
+  width: auto;
+}
+
+/* Title next to logo */
+.logo-title h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--header-text);
+}
+
+@media (max-width: 700px) {
+  .logo-title {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .site-logo {
+    height: 50px; /* smaller on mobile */
+  }
+
+  .logo-title h1 {
+    font-size: 1.4rem;
+  }
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  padding: 0 20px;
+}
+
+.search-container input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.search-container input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 2px solid var(--primary-purple);  /* ✅ Purple border */
+  font-size: 1rem;
+  outline: none;  /* removes default highlight */
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Hover & focus effect */
+.search-container input:focus {
+  border-color: var(--primary-purple-hover); /* ✅ darker purple */
+  box-shadow: 0 0 6px rgba(106, 13, 173, 0.4); /* subtle glow */
+}
+
+.search-container input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid gainsboro !important; /* ✅ ensure visible */
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-container input:focus {
+  border-color: var(--primary-purple-hover);
+  box-shadow: 0 0 6px rgba(106, 13, 173, 0.4);
+}
 
