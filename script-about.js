@@ -2,6 +2,8 @@ const translations = {
   en: {
     pageTitle: "About | Assistive Technologies GCC",
     siteTitle: "Assistive Technologies in GCC",
+    home: "Home",
+    aboutbtn: "About",
     about: {
       heading: "Hussain Mahkareem",
       intro: `I am a Software Engineering graduate from Rochester Institute of Technology (RIT) 
@@ -19,6 +21,8 @@ const translations = {
   ar: {
     pageTitle: "حول | التقنيات المساعدة في الخليج",
     siteTitle: "التقنيات المساعدة في الخليج",
+    home: "الرئيسية",
+    aboutbtn: "من أنا",
     about: {
       heading: "حسين ماه كريم",
       intro: `أنا خريج هندسة البرمجيات من معهد روتشستر للتكنولوجيا (RIT) 
@@ -47,6 +51,9 @@ function setLanguage(lang) {
   const t = translations[lang];
   document.title = t.pageTitle;
   document.getElementById("site-title").innerText = t.siteTitle;
+  // Update nav buttons
+document.getElementById("homeBtn").innerText = t.home;
+document.getElementById("aboutBtn").innerText = t.aboutbtn;
 
   const container = document.querySelector(".about-card");
   container.innerHTML = `
