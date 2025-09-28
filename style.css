@@ -793,3 +793,28 @@ header h1 {
   }
 }
 
+/* Default grid: flexible */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  width: 100%;       /* take full device width */
+  max-width: 1400px; /* optional limit for huge screens */
+  margin: auto;
+}
+
+/* Force exactly 2 columns on fold / medium screens */
+@media (min-width: 600px) and (max-width: 1000px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: single column */
+@media (max-width: 599px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
