@@ -93,15 +93,16 @@ const translations = {
     noComments: "No comments yet.",
     fillAll: "Please fill in all fields.",
     success: "Your feedback has been received. Thank you!",
-    siteTitle: "Assistive Technologies in GCC",
+    siteTitle: "Tech For All",
     home: "Home",
     aboutbtn: "About",
+    saving: "Saving your comment ...",
   },
   ar: {
     addComment: "أضف تعليقك",
     name: "الاسم",
     email: "البريد الإلكتروني",
-    phone: "رقم الهاتف",
+    phone: "رقم الجوال",
     comment: "اكتب تعليقك هنا...",
     share: "مشاركة",
     print: "طباعة",
@@ -110,9 +111,10 @@ const translations = {
     noComments: "لا توجد تعليقات بعد.",
     fillAll: "يرجى ملء جميع الحقول.",
     success: "تم استلام تعليقك. شكرًا لك!",
-    siteTitle: "التقنيات المساعدة في الخليج",
+    siteTitle: "التقنيات للجميع",
     home: "الرئيسية",
     aboutbtn: "من أنا",
+    saving: "جارٍ حفظ تعليقك ...",
   },
 };
 
@@ -141,6 +143,8 @@ function setLanguage(lang) {
   document.getElementById("site-title").innerText = t.siteTitle;
   document.getElementById("homeBtn").innerText = t.home;
   document.getElementById("aboutBtn").innerText = t.aboutbtn;
+  document.querySelector("#loadingOverlay span").innerText =
+    translations[lang].saving;
 
   const container = document.getElementById("toolDetails");
 
@@ -157,7 +161,7 @@ function setLanguage(lang) {
       <input type="tel" id="userPhone" placeholder="${t.phone}" style="flex:1; padding:8px;">
     </div>
 
-    <textarea id="commentInput" placeholder="Write your comment here..." style="width:100%; padding:8px;"></textarea>
+    <textarea id="commentInput" placeholder="${t.addComment}" style="width:100%; padding:8px;"></textarea>
 
 
     <div style="margin-top:10px; display:flex; justify-content:space-between; flex-wrap:wrap;">

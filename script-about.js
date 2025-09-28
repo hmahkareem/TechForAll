@@ -1,42 +1,45 @@
 const translations = {
   en: {
-    pageTitle: "About | Assistive Technologies GCC",
-    siteTitle: "Assistive Technologies in GCC",
+    pageTitle: "About | Tech for All",
+    siteTitle: "Tech for All",
     home: "Home",
     aboutbtn: "About",
     about: {
       heading: "Hussain Mahkareem",
-      intro: `I am a Software Engineering graduate from Rochester Institute of Technology (RIT) 
-              with extensive experience in IT and application support within the banking sector.  
-              I am passionate about AI research and dedicated to bringing advanced technology 
-              solutions to Kuwait and the wider GCC region.`,
+      intro: `I am Hussain Mahkareem, a Software Engineering graduate from Rochester Institute of Technology (RIT), New York (2018). 
+              I have over seven years of experience in IT and application support within the banking sector in Kuwait, 
+              where I worked extensively with enterprise systems and user experience improvements. 
+              Currently, I am pursuing a Master’s degree in Computer Information Systems at Kuwait University. 
+              This project represents my graduation thesis and reflects my passion for supporting individuals with special needs 
+              through technology and UX design.`,
       projectTitle: "About this Website",
-      projectDesc: `This project is part of my master’s work and aims to gather all available 
-                    assistive technologies in the GCC region that support individuals with learning 
-                    difficulties such as Dyslexia, Dysgraphia, Dysphasia, and Auditory Processing Disorder. 
-                    The goal is to make these tools more accessible to schools, educators, and families, 
-                    and help students achieve their full potential.`
-    }
+      projectDesc: `This website, Tech for All, is designed as a centralized bilingual platform (Arabic–English) 
+                    to gather and present assistive technologies available in Kuwait and across the GCC. 
+                    It focuses on tools supporting students with learning disabilities such as Dyslexia, Dysgraphia, Dysphasia, 
+                    and Auditory Processing Disorder. The platform helps educators, parents, and students discover and share tools, 
+                    experiences, and feedback, making assistive technologies more accessible and effective in improving learning outcomes.`,
+    },
   },
   ar: {
-    pageTitle: "حول | التقنيات المساعدة في الخليج",
-    siteTitle: "التقنيات المساعدة في الخليج",
+    pageTitle: "حول | التكنولوجيا للجميع",
+    siteTitle: "التكنولوجيا للجميع",
     home: "الرئيسية",
     aboutbtn: "من أنا",
     about: {
       heading: "حسين ماه كريم",
-      intro: `أنا خريج هندسة البرمجيات من معهد روتشستر للتكنولوجيا (RIT) 
-              ولدي خبرة واسعة في مجال تكنولوجيا المعلومات ودعم التطبيقات في القطاع المصرفي.  
-              شغفي هو البحث في مجال الذكاء الاصطناعي والعمل على جلب الحلول التقنية المتقدمة 
-              إلى الكويت ومنطقة الخليج.`,
+      intro: `أنا حسين ماه كريم، خريج هندسة البرمجيات من معهد روتشستر للتكنولوجيا (RIT) – نيويورك عام 2018. 
+              أعمل منذ أكثر من سبع سنوات في مجال تكنولوجيا المعلومات ودعم التطبيقات في القطاع المصرفي في الكويت، 
+              حيث اكتسبت خبرة واسعة في الأنظمة المؤسسية وتحسين تجربة المستخدم. 
+              حاليًا أتابع دراساتي العليا كطالب ماجستير في نظم المعلومات الحاسوبية بجامعة الكويت، 
+              وهذا المشروع يمثل مشروع تخرجي ويعكس شغفي بدعم ذوي الاحتياجات الخاصة من خلال التكنولوجيا وتصميم تجربة المستخدم.`,
       projectTitle: "عن هذا الموقع",
-      projectDesc: `هذا المشروع جزء من عملي في الماجستير ويهدف إلى جمع جميع التقنيات 
-                    المساعدة المتاحة في منطقة الخليج لدعم الأفراد الذين يعانون من صعوبات التعلم 
-                    مثل عسر القراءة، عسر الكتابة، اضطراب الكلام، واضطراب المعالجة السمعية.  
-                    الهدف هو جعل هذه الأدوات أكثر سهولة للوصول للمدارس والمعلمين والأسر، 
-                    ومساعدة الطلاب على تحقيق كامل إمكاناتهم.`
-    }
-  }
+      projectDesc: `تم إنشاء موقع "التكنولوجيا للجميع" كمنصة ثنائية اللغة (العربية – الإنجليزية) 
+                    تجمع وتعرض جميع التقنيات المساعدة المتاحة في الكويت ودول مجلس التعاون الخليجي. 
+                    يركز الموقع على الأدوات التي تدعم الطلاب من ذوي صعوبات التعلم مثل عسر القراءة، عسر الكتابة، اضطراب الكلام، 
+                    واضطراب المعالجة السمعية. يهدف الموقع إلى مساعدة المعلمين وأولياء الأمور والطلاب في اكتشاف الأدوات المناسبة، 
+                    وتبادل الخبرات والتجارب، مما يجعل التقنيات المساعدة أكثر سهولة وفعالية في تحسين العملية التعليمية.`,
+    },
+  },
 };
 
 let currentLang = localStorage.getItem("lang") || "ar";
@@ -51,9 +54,10 @@ function setLanguage(lang) {
   const t = translations[lang];
   document.title = t.pageTitle;
   document.getElementById("site-title").innerText = t.siteTitle;
+
   // Update nav buttons
-document.getElementById("homeBtn").innerText = t.home;
-document.getElementById("aboutBtn").innerText = t.aboutbtn;
+  document.getElementById("homeBtn").innerText = t.home;
+  document.getElementById("aboutBtn").innerText = t.aboutbtn;
 
   const container = document.querySelector(".about-card");
   container.innerHTML = `
@@ -68,7 +72,7 @@ document.getElementById("aboutBtn").innerText = t.aboutbtn;
 document.addEventListener("DOMContentLoaded", () => {
   const langSwitcher = document.getElementById("languageSwitcher");
   langSwitcher.value = currentLang;
-  langSwitcher.addEventListener("change", e => setLanguage(e.target.value));
+  langSwitcher.addEventListener("change", (e) => setLanguage(e.target.value));
 
   setLanguage(currentLang);
 });
