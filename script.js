@@ -22,9 +22,9 @@ let currentLang = "ar";
 const toolsData = [
   { id: 0, category: "dyslexia", title: { en: "Tool A", ar: "الأداة أ" }, desc: { en: "Helps students with Dyslexia improve reading.", ar: "تساعد الطلاب الذين يعانون من عسر القراءة على تحسين مهارات القراءة." }, img: "images/tool-a.jpg"},
   { id: 1, category: "dysgraphia", title: { en: "Tool B", ar: "الأداة ب" }, desc: { en: "Supports Dysgraphia with handwriting assistance.", ar: "تدعم عسر الكتابة من خلال المساعدة في الكتابة اليدوية." }, img: "images/tool-b.jpg" },
-  { id: 2, category: "dysphasia", title: { en: "Tool C", ar: "الأداة ج" }, desc: { en: "Speech support software for Dysphasia.", ar: "برنامج دعم النطق لاضطراب الكلام." }, img: "images/tool-c.jpeg" },
+  { id: 2, category: "dysphasia", title: { en: "Tool C", ar: "الأداة ج" }, desc: { en: "Speech support software for Dysphasia.", ar: "برنامج جميل جدا دعم النطق لاضطراب الكلام." }, img: "images/tool-c.jpeg" },
   { id: 3, category: "auditory", title: { en: "Tool D", ar: "الأداة د" }, desc: { en: "Enhances listening for Auditory Processing Disorder.", ar: "يعزز الاستماع لاضطراب المعالجة السمعية." }, img: "images/tool-d.png" },
-  { id: 4, category: "dyslexia", title: { en: "Tool E", ar: "الأداة هـ" }, desc: { en: "Another great app for Dyslexia learners.", ar: "تطبيق آخر رائع لمتعلمي عسر القراءة." }, img: "images/tool-e.webp" }
+  { id: 4, category: "dyslexia", title: { en: "Tool E", ar: "الأداة هـ" }, desc: { en: "Another great app for Dyslexia learners.", ar: "تطبيق آخر رائع لمساعدة متعلمي عسر القراءة." }, img: "images/tool-e.webp" }
 ];
 
 // ---------------- BUILD UI ----------------
