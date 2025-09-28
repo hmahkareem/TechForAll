@@ -1,57 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-  <title id="pageTitle">Tool Details</title>
-  <link rel="stylesheet" href="style.css?v=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Alan+Sans&family=Rubik&display=swap" rel="stylesheet">
+  <head>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/images/faviocn/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="/images/faviocn/favicon.svg" />
+    <link rel="shortcut icon" href="/images/faviocn/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/faviocn/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Teck For All" />
+    <link rel="manifest" href="/images/faviocn/site.webmanifest" />
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />Í
+    <meta http-equiv="Expires" content="0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title id="pageTitle">Tool Details</title>
+    <link rel="stylesheet" href="style.css?v=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alan+Sans&family=Rubik&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-</head>
-<body>
-  <header class="site-header">
-  <!-- Title -->
-   <div class="logo-title">
-    <img src="images/Logo.png" alt="Logo" class="site-logo">
-  <h1 id="site-title"></h1>
-</div>
-   
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <!-- Title -->
+      <div class="logo-title">
+        <img src="images/Logo.png" alt="Logo" class="site-logo" />
+        <h1 id="site-title"></h1>
+      </div>
 
+      <!-- Language + buttons -->
+      <div class="header-right">
+        <a href="index.html" id="homeBtn" class="header-btn">Home</a>
+        <a href="about.html" id="aboutBtn" class="header-btn">About</a>
+        <select id="languageSwitcher">
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </header>
 
-  <!-- Language + buttons -->
-  <div class="header-right">
-    <a href="index.html" id="homeBtn" class="header-btn">Home</a>
-    <a href="about.html" id="aboutBtn" class="header-btn">About</a>
-    <select id="languageSwitcher">
-      <option value="ar">العربية</option>
-      <option value="en">English</option>
-    </select>
-    
-  </div>
-</header>
+    <main id="toolDetails" class="tool-details"></main>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay">
+      <div class="spinner"></div>
+      <span>Saving your comment...</span>
+    </div>
 
-  <main id="toolDetails" class="tool-details"></main>
-  <!-- Loading Overlay -->
-<div id="loadingOverlay">
-  <div class="spinner"></div>
-  <span>Saving your comment...</span>
-</div>
+    <footer>&copy; 2025 Assistive Technologies GCC</footer>
 
-  <footer>
-    &copy; 2025 Assistive Technologies GCC
-  </footer>
-
-  <script type="module" src="script-tool.js?v=1.0"></script>
-
-
-</body>
+    <script type="module" src="script-tool.js?v=1.0"></script>
+  </body>
 </html>

@@ -1,50 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About | Assistive Technologies GCC</title>
-  <link rel="stylesheet" href="style.css?v=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Alan+Sans&family=Rubik&display=swap" rel="stylesheet">
-</head>
-<body>
-  <!-- Header (same as main page, but search hidden) -->
-  <header class="site-header">
-  <!-- Title -->
-   <div class="logo-title">
-    <img src="images/Logo.png" alt="Logo" class="site-logo">
-  <h1 id="site-title"></h1>
-</div>
+  <head>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/images/faviocn/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="/images/faviocn/favicon.svg" />
+    <link rel="shortcut icon" href="/images/faviocn/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/faviocn/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Teck For All" />
+    <link rel="manifest" href="/images/faviocn/site.webmanifest" />
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | Assistive Technologies GCC</title>
+    <link rel="stylesheet" href="style.css?v=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alan+Sans&family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header (same as main page, but search hidden) -->
+    <header class="site-header">
+      <!-- Title -->
+      <div class="logo-title">
+        <img src="images/Logo.png" alt="Logo" class="site-logo" />
+        <h1 id="site-title"></h1>
+      </div>
 
-  
+      <!-- Language + buttons -->
+      <div class="header-right">
+        <a href="index.html" id="homeBtn" class="header-btn">Home</a>
+        <a href="about.html" id="aboutBtn" class="header-btn">About</a>
+        <select id="languageSwitcher">
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </header>
 
-  <!-- Language + buttons -->
-  <div class="header-right">
-    <a href="index.html" id="homeBtn" class="header-btn">Home</a>
-    <a href="about.html" id="aboutBtn" class="header-btn">About</a>
-    <select id="languageSwitcher">
-      <option value="ar">العربية</option>
-      <option value="en">English</option>
-    </select>
-    
-  </div>
-</header>
+    <!-- About Content -->
+    <main class="about-container">
+      <div class="about-card">
+        <!-- Content is filled dynamically by script-about.js -->
+      </div>
+    </main>
 
-  <!-- About Content -->
-  <main class="about-container">
-    <div class="about-card">
-      <!-- Content is filled dynamically by script-about.js -->
-    </div>
-  </main>
+    <footer>&copy; 2025 Assistive Technologies GCC</footer>
 
-  <footer>
-    &copy; 2025 Assistive Technologies GCC
-  </footer>
-
-  <!-- JS for About Page -->
-  <script type="module" src="script-about.js?v=1.0"></script>
-</body>
+    <!-- JS for About Page -->
+    <script type="module" src="script-about.js?v=1.0"></script>
+  </body>
 </html>
