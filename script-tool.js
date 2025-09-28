@@ -1,35 +1,29 @@
-// Tools data (shared comments, bilingual titles/descriptions)
+// Import Firebase modules (modular v9)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getFirestore, collection, getDocs, addDoc, query, where, orderBy } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCy3M2abj-mcJLjOg4fcsJZzZrh_QgpDiE",
+  authDomain: "assistivetoolsgcc.firebaseapp.com",
+  projectId: "assistivetoolsgcc",
+  storageBucket: "assistivetoolsgcc.firebasestorage.app",
+  messagingSenderId: "124516142353",
+  appId: "1:124516142353:web:b68cae144a913bdd4350b0",
+  measurementId: "G-S2JSHME8EL"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Tools data (bilingual)
 const toolsData = [
-  { 
-    title: { en: "Tool A", ar: "الأداة أ" },
-    desc: { en: "Helps students with Dyslexia improve reading.", ar: "تساعد الطلاب الذين يعانون من عسر القراءة على تحسين مهارات القراءة." },
-    category: "dyslexia",
-    comments: []
-  },
-  { 
-    title: { en: "Tool B", ar: "الأداة ب" },
-    desc: { en: "Supports Dysgraphia with handwriting assistance.", ar: "تدعم عسر الكتابة من خلال المساعدة في الكتابة اليدوية." },
-    category: "dysgraphia",
-    comments: []
-  },
-  { 
-    title: { en: "Tool C", ar: "الأداة ج" },
-    desc: { en: "Speech support software for Dysphasia.", ar: "برنامج دعم النطق لاضطراب الكلام." },
-    category: "dysphasia",
-    comments: []
-  },
-  { 
-    title: { en: "Tool D", ar: "الأداة د" },
-    desc: { en: "Enhances listening for Auditory Processing Disorder.", ar: "يعزز الاستماع لاضطراب المعالجة السمعية." },
-    category: "auditory",
-    comments: []
-  },
-  { 
-    title: { en: "Tool E", ar: "الأداة هـ" },
-    desc: { en: "Another great app for Dyslexia learners.", ar: "تطبيق آخر رائع لمتعلمي عسر القراءة." },
-    category: "dyslexia",
-    comments: []
-  }
+  { id: 0, category: "dyslexia", title: { en: "Tool A", ar: "الأداة أ" }, desc: { en: "Helps students with Dyslexia improve reading.", ar: "تساعد الطلاب الذين يعانون من عسر القراءة على تحسين مهارات القراءة." } },
+  { id: 1, category: "dysgraphia", title: { en: "Tool B", ar: "الأداة ب" }, desc: { en: "Supports Dysgraphia with handwriting assistance.", ar: "تدعم عسر الكتابة من خلال المساعدة في الكتابة اليدوية." } },
+  { id: 2, category: "dysphasia", title: { en: "Tool C", ar: "الأداة ج" }, desc: { en: "Speech support software for Dysphasia.", ar: "برنامج دعم النطق لاضطراب الكلام." } },
+  { id: 3, category: "auditory", title: { en: "Tool D", ar: "الأداة د" }, desc: { en: "Enhances listening for Auditory Processing Disorder.", ar: "يعزز الاستماع لاضطراب المعالجة السمعية." } },
+  { id: 4, category: "dyslexia", title: { en: "Tool E", ar: "الأداة هـ" }, desc: { en: "Another great app for Dyslexia learners.", ar: "تطبيق آخر رائع لمتعلمي عسر القراءة." } }
 ];
 
 const translations = {
@@ -65,25 +59,24 @@ const translations = {
 
 let currentLang = "en";
 
+document.getElementById("languageSwitcher").addEventListener("change", (e) => {
+  setLanguage(e.target.value);
+});
+
 // Get tool ID from URL
 function getToolId() {
   const params = new URLSearchParams(window.location.search);
-  return params.get("id") || 0;
+  return parseInt(params.get("id")) || 0;
 }
 
 // Initialize page
 function setLanguage(lang){
   currentLang = lang;
-
-  // Set <html> lang attribute for CSS
   document.documentElement.lang = lang;
-
-  // Set page direction
   document.body.style.direction = lang === "ar" ? "rtl" : "ltr";
 
-
   const id = getToolId();
-  const tool = toolsData[id];
+  const tool = toolsData.find(t => t.id === id);
   const t = translations[lang];
 
   document.getElementById("site-title").innerText = tool.title[lang];
@@ -102,85 +95,126 @@ function setLanguage(lang){
       <input type="tel" id="userPhone" placeholder="${t.phone}" style="flex:1; padding:8px;">
     </div>
 
-    <textarea id="feedback" placeholder="${t.comment}" style="width:100%; padding:8px;"></textarea>
+    <textarea id="commentInput" placeholder="Write your comment here..." style="width:100%; padding:8px;"></textarea>
+
 
     <div style="margin-top:10px; display:flex; justify-content:space-between; flex-wrap:wrap;">
-  <div>
-    <button onclick="shareTool()">${t.share}</button>
-    <button onclick="printTool()">${t.print}</button>
-  </div>
-  <div>
-    <button onclick="submitFeedback()">${t.submit}</button>
-  </div>
-</div>
+      <div>
+        <button id="shareBtn">${t.share}</button>
+        <button id="printBtn">${t.print}</button>
+      </div>
+      <div>
+        <button id="submitBtn">${t.submit}</button>
+      </div>
+    </div>
 
     <h3 style="margin-top:25px;">${t.prevComments}</h3>
     <div id="commentsList"></div>
-
     <div id="feedbackMsg" style="margin-top:10px;color:green;"></div>
   `;
 
-  renderComments(tool);
+  // Add button listeners
+  document.getElementById("shareBtn").addEventListener("click", shareTool);
+  document.getElementById("printBtn").addEventListener("click", printTool);
+  document.getElementById("submitBtn").addEventListener("click", () => submitFeedback(tool));
+
+  loadComments(tool);
 }
 
-// Render comments
-function renderComments(tool){
+// Load comments from Firestore
+async function loadComments(tool){
   const commentsContainer = document.getElementById("commentsList");
   commentsContainer.innerHTML = "";
 
-  if(tool.comments.length === 0){
-    commentsContainer.innerHTML = `<p>${translations[currentLang].noComments}</p>`;
-    return;
+  try {
+    const commentsCol = collection(db, "tools", tool.id.toString(), "comments");
+    const q = query(commentsCol, orderBy("date", "desc"));
+    const snapshot = await getDocs(q);
+    if(snapshot.empty){
+      commentsContainer.innerHTML = `<p>${translations[currentLang].noComments}</p>`;
+      return;
+    }
+    snapshot.forEach(doc => {
+      const c = doc.data();
+      const div = document.createElement("div");
+      div.style.borderBottom = "1px solid #ccc";
+      div.style.padding = "8px 0";
+      div.innerHTML = `<strong>${c.name}</strong> (${c.date})<br>Email: ${c.email} | Phone: ${c.phone}<br>${c.text}`;
+      commentsContainer.appendChild(div);
+    });
+  } catch(err){
+    console.error("Error loading comments:", err);
   }
-
-  tool.comments.forEach(c=>{
-    const div = document.createElement("div");
-    div.style.borderBottom = "1px solid #ccc";
-    div.style.padding = "8px 0";
-    div.innerHTML = `<strong>${c.name}</strong> (${c.date})<br>Email: ${c.email} | Phone: ${c.phone}<br>${c.text}`;
-    commentsContainer.appendChild(div);
-  });
 }
 
-// Share URL
-function shareTool(){
-  navigator.clipboard.writeText(window.location.href).then(()=>{
-    alert(currentLang === "ar" ? "تم نسخ رابط الأداة!" : "Tool URL copied!");
-  });
-}
-
-// Print
-function printTool(){ window.print(); }
-
-// Submit feedback
-function submitFeedback(){
+async function submitFeedback(tool){
   const name = document.getElementById("userName").value.trim();
   const email = document.getElementById("userEmail").value.trim();
   const phone = document.getElementById("userPhone").value.trim();
-  const feedback = document.getElementById("feedback").value.trim();
+  const commentText = document.getElementById("commentInput").value.trim();
   const msg = document.getElementById("feedbackMsg");
-  const id = getToolId();
-  const tool = toolsData[id];
 
-  if(!name || !email || !phone || !feedback){
+  if(!name || !email || !phone || !commentText){
     msg.style.color = "red";
     msg.innerText = translations[currentLang].fillAll;
     return;
   }
 
-  const date = new Date().toLocaleString();
-  tool.comments.push({ name, email, phone, text: feedback, date });
+  // Show loader
+  document.getElementById("loadingOverlay").style.display = "flex";
 
-  document.getElementById("userName").value = "";
-  document.getElementById("userEmail").value = "";
-  document.getElementById("userPhone").value = "";
-  document.getElementById("feedback").value = "";
+  try {
+    // Add comment to Firestore
+    await addDoc(collection(db, "tools", tool.id.toString(), "comments"), {
+      name, email, phone, text: commentText,
+      date: new Date().toLocaleString()
+    });
 
-  msg.style.color = "green";
-  msg.innerText = translations[currentLang].success;
+    // Clear inputs
+    document.getElementById("userName").value = "";
+    document.getElementById("userEmail").value = "";
+    document.getElementById("userPhone").value = "";
+    document.getElementById("commentInput").value = "";
 
-  renderComments(tool);
+    msg.style.color = "green";
+    msg.innerText = translations[currentLang].success;
+
+    // Reload comments
+    loadComments(tool);
+
+  } catch(err){
+    console.error("Error submitting comment:", err);
+    msg.style.color = "red";
+    msg.innerText = "Error submitting comment.";
+  } finally {
+    document.getElementById("loadingOverlay").style.display = "none";
+  }
 }
+
+
+
+// Share URL
+function shareTool() {
+  const shareData = {
+    title: document.getElementById("site-title").innerText,
+    text: "Check out this assistive tool!",
+    url: window.location.href
+  };
+
+  if (navigator.share) {
+    navigator.share(shareData)
+      .then(() => console.log("Shared successfully"))
+      .catch((err) => console.error("Error sharing:", err));
+  } else {
+    // Fallback: copy URL
+    navigator.clipboard.writeText(window.location.href)
+      .then(() => alert(currentLang === "ar" ? "تم نسخ رابط الأداة!" : "Tool URL copied!"))
+      .catch((err) => console.error("Could not copy URL:", err));
+  }
+}
+
+// Print page
+function printTool(){ window.print(); }
 
 // Initialize page
 setLanguage(currentLang);

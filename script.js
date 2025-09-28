@@ -1,63 +1,59 @@
-// TRANSLATIONS AND TOOL DATA
+// --------------- FIREBASE SETUP ---------------
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyCy3M2abj-mcJLjOg4fcsJZzZrh_QgpDiE",
+  authDomain: "assistivetoolsgcc.firebaseapp.com",
+  projectId: "assistivetoolsgcc",
+  storageBucket: "assistivetoolsgcc.firebasestorage.app",
+  messagingSenderId: "124516142353",
+  appId: "1:124516142353:web:b68cae144a913bdd4350b0",
+  measurementId: "G-S2JSHME8EL"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// --------------- TRANSLATIONS ---------------
 const translations = {
   en: {
     pageTitle: "Assistive Technologies GCC",
     siteTitle: "Assistive Technologies in GCC",
     searchPlaceholder: "Search tools...",
-    categories: {
-      all: "All",
-      dyslexia: "Dyslexia",
-      dysgraphia: "Dysgraphia",
-      dysphasia: "Dysphasia",
-      auditory: "Auditory Processing Disorder"
-    },
-    tools: [
-      { category: "dyslexia", title: "Tool A", desc: "Helps students with Dyslexia improve reading." },
-      { category: "dysgraphia", title: "Tool B", desc: "Supports Dysgraphia with handwriting assistance." },
-      { category: "dysphasia", title: "Tool C", desc: "Speech support software for Dysphasia." },
-      { category: "auditory", title: "Tool D", desc: "Enhances listening for Auditory Processing Disorder." },
-      { category: "dyslexia", title: "Tool E", desc: "Another great app for Dyslexia learners." }
-    ]
+    categories: { all: "All", dyslexia: "Dyslexia", dysgraphia: "Dysgraphia", dysphasia: "Dysphasia", auditory: "Auditory Processing Disorder" }
   },
   ar: {
     pageTitle: "التقنيات المساعدة في الخليج",
     siteTitle: "التقنيات المساعدة في الخليج",
     searchPlaceholder: "ابحث عن الأدوات...",
-    categories: {
-      all: "الكل",
-      dyslexia: "عسر القراءة",
-      dysgraphia: "عسر الكتابة",
-      dysphasia: "اضطراب الكلام",
-      auditory: "اضطراب المعالجة السمعية"
-    },
-    tools: [
-      { category: "dyslexia", title: "الأداة أ", desc: "تساعد الطلاب الذين يعانون من عسر القراءة على تحسين مهارات القراءة." },
-      { category: "dysgraphia", title: "الأداة ب", desc: "تدعم عسر الكتابة من خلال المساعدة في الكتابة اليدوية." },
-      { category: "dysphasia", title: "الأداة ج", desc: "برنامج دعم النطق لاضطراب الكلام." },
-      { category: "auditory", title: "الأداة د", desc: "يعزز الاستماع لاضطراب المعالجة السمعية." },
-      { category: "dyslexia", title: "الأداة هـ", desc: "تطبيق آخر رائع لمتعلمي عسر القراءة." }
-    ]
+    categories: { all: "الكل", dyslexia: "عسر القراءة", dysgraphia: "عسر الكتابة", dysphasia: "اضطراب الكلام", auditory: "اضطراب المعالجة السمعية" }
   }
 };
 
 let currentLang = "en";
+let toolsData = [];
 
-// SET LANGUAGE AND BUILD UI
-function setLanguage(lang) {
+// --------------- FETCH TOOLS FROM FIRESTORE ---------------
+async function fetchTools() {
+  const querySnapshot = await getDocs(collection(db, "tools"));
+  toolsData = [];
+  querySnapshot.forEach(doc => {
+    toolsData.push({ id: doc.id, ...doc.data() });
+  });
+}
+
+// --------------- BUILD UI ---------------
+async function setLanguage(lang) {
   currentLang = lang;
-
-  // Set <html> lang attribute for CSS
   document.documentElement.lang = lang;
-
-  // Set page direction
   document.body.style.direction = lang === "ar" ? "rtl" : "ltr";
+
+  // Wait for tools from Firestore
+  await fetchTools();
 
   const t = translations[lang];
-
-  // Direction
-  document.body.style.direction = lang === "ar" ? "rtl" : "ltr";
-
-  // Titles
   document.title = t.pageTitle;
   document.getElementById("site-title").innerText = t.siteTitle;
   document.getElementById("searchBar").placeholder = t.searchPlaceholder;
@@ -68,63 +64,49 @@ function setLanguage(lang) {
   Object.entries(t.categories).forEach(([key, label], index) => {
     const btn = document.createElement("button");
     btn.innerText = label;
-    btn.setAttribute("data-key", key);
+    btn.dataset.key = key;
     btn.onclick = () => filterCategory(key, btn);
-    if(index === 0) btn.classList.add("active"); // default "All"
+    if (index === 0) btn.classList.add("active");
     categoriesContainer.appendChild(btn);
   });
 
   // Tools grid
   const toolsList = document.getElementById("toolsList");
   toolsList.innerHTML = "";
-  t.tools.forEach((tool, index) => {
+  toolsData.forEach((tool) => {
     const card = document.createElement("div");
     card.className = `tool-card ${tool.category}`;
-    card.innerHTML = `
-      <h3>${tool.title}</h3>
-      <p>${tool.desc}</p>
-    `;
-    // Make card clickable: go to tool.html?id=index
+    card.innerHTML = `<h3>${tool.title[lang]}</h3><p>${tool.desc[lang]}</p>`;
     card.style.cursor = "pointer";
-    card.onclick = () => {
-      window.location.href = `tool.html?id=${index}`;
-    };
+    card.onclick = () => { window.location.href = `tool.html?id=${tool.id}`; };
     toolsList.appendChild(card);
   });
 }
 
-// SEARCH FILTER
-const searchBar = document.getElementById("searchBar");
-searchBar.addEventListener("keyup", function(e){
+// --------------- SEARCH FILTER ---------------
+document.getElementById("searchBar").addEventListener("keyup", (e) => {
   const term = e.target.value.toLowerCase();
-  const cards = document.querySelectorAll(".tool-card");
-  cards.forEach(card => {
+  document.querySelectorAll(".tool-card").forEach(card => {
     const text = card.innerText.toLowerCase();
     card.style.display = text.includes(term) ? "block" : "none";
   });
 
-  // Reset active category
-  const buttons = document.querySelectorAll(".categories button");
-  buttons.forEach(btn => btn.classList.remove("active"));
-  if(buttons[0]) buttons[0].classList.add("active");
+  // Reset category
+  document.querySelectorAll(".categories button").forEach(btn => btn.classList.remove("active"));
+  const firstBtn = document.querySelector(".categories button");
+  if (firstBtn) firstBtn.classList.add("active");
 });
 
-// CATEGORY FILTER
-function filterCategory(category, button){
-  const cards = document.querySelectorAll(".tool-card");
-  cards.forEach(card => {
-    if(category === "all"){
-      card.style.display = "block";
-    } else {
-      card.style.display = card.classList.contains(category) ? "block" : "none";
-    }
+// --------------- CATEGORY FILTER ---------------
+function filterCategory(category, button) {
+  document.querySelectorAll(".tool-card").forEach(card => {
+    if (category === "all") card.style.display = "block";
+    else card.style.display = card.classList.contains(category) ? "block" : "none";
   });
 
-  // Highlight button
-  const buttons = document.querySelectorAll(".categories button");
-  buttons.forEach(btn => btn.classList.remove("active"));
+  document.querySelectorAll(".categories button").forEach(btn => btn.classList.remove("active"));
   button.classList.add("active");
 }
 
-// INITIALIZE
+// --------------- INITIALIZE ---------------
 setLanguage(currentLang);

@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Alan+Sans&family=Rubik&display=swap" rel="stylesheet">
 
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <header>
@@ -17,14 +20,21 @@
         <option value="ar">العربية</option>
       </select>
     </div>
+    
   </header>
 
   <main id="toolDetails" class="tool-details"></main>
+  <!-- Loading Overlay -->
+<div id="loadingOverlay">
+  <div class="spinner"></div>
+  <span>Saving your comment...</span>
+</div>
 
   <footer>
     &copy; 2025 Assistive Technologies GCC
   </footer>
 
-  <script src="script-tool.js"></script>
+  <script type="module" src="script-tool.js"></script>
+
 </body>
 </html>
