@@ -1,22 +1,4 @@
-// --------------- FIREBASE SETUP ---------------
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyCy3M2abj-mcJLjOg4fcsJZzZrh_QgpDiE",
-  authDomain: "assistivetoolsgcc.firebaseapp.com",
-  projectId: "assistivetoolsgcc",
-  storageBucket: "assistivetoolsgcc.firebasestorage.app",
-  messagingSenderId: "124516142353",
-  appId: "1:124516142353:web:b68cae144a913bdd4350b0",
-  measurementId: "G-S2JSHME8EL"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// --------------- TRANSLATIONS ---------------
+// ---------------- TRANSLATIONS ----------------
 const translations = {
   en: {
     pageTitle: "Assistive Technologies GCC",
@@ -33,28 +15,21 @@ const translations = {
 };
 
 let currentLang = "en";
-document.getElementById("languageSwitcher").addEventListener("change", (e) => {
-  setLanguage(e.target.value);
-});
-let toolsData = [];
 
-// --------------- FETCH TOOLS FROM FIRESTORE ---------------
-async function fetchTools() {
-  const querySnapshot = await getDocs(collection(db, "tools"));
-  toolsData = [];
-  querySnapshot.forEach(doc => {
-    toolsData.push({ id: doc.id, ...doc.data() });
-  });
-}
+// ---------------- HARD-CODED TOOLS ----------------
+const toolsData = [
+  { id: 0, category: "dyslexia", title: { en: "Tool A", ar: "الأداة أ" }, desc: { en: "Helps students with Dyslexia improve reading.", ar: "تساعد الطلاب الذين يعانون من عسر القراءة على تحسين مهارات القراءة." } },
+  { id: 1, category: "dysgraphia", title: { en: "Tool B", ar: "الأداة ب" }, desc: { en: "Supports Dysgraphia with handwriting assistance.", ar: "تدعم عسر الكتابة من خلال المساعدة في الكتابة اليدوية." } },
+  { id: 2, category: "dysphasia", title: { en: "Tool C", ar: "الأداة ج" }, desc: { en: "Speech support software for Dysphasia.", ar: "برنامج دعم النطق لاضطراب الكلام." } },
+  { id: 3, category: "auditory", title: { en: "Tool D", ar: "الأداة د" }, desc: { en: "Enhances listening for Auditory Processing Disorder.", ar: "يعزز الاستماع لاضطراب المعالجة السمعية." } },
+  { id: 4, category: "dyslexia", title: { en: "Tool E", ar: "الأداة هـ" }, desc: { en: "Another great app for Dyslexia learners.", ar: "تطبيق آخر رائع لمتعلمي عسر القراءة." } }
+];
 
-// --------------- BUILD UI ---------------
-async function setLanguage(lang) {
+// ---------------- BUILD UI ----------------
+function setLanguage(lang) {
   currentLang = lang;
   document.documentElement.lang = lang;
   document.body.style.direction = lang === "ar" ? "rtl" : "ltr";
-
-  // Wait for tools from Firestore
-  await fetchTools();
 
   const t = translations[lang];
   document.title = t.pageTitle;
@@ -76,7 +51,7 @@ async function setLanguage(lang) {
   // Tools grid
   const toolsList = document.getElementById("toolsList");
   toolsList.innerHTML = "";
-  toolsData.forEach((tool) => {
+  toolsData.forEach(tool => {
     const card = document.createElement("div");
     card.className = `tool-card ${tool.category}`;
     card.innerHTML = `<h3>${tool.title[lang]}</h3><p>${tool.desc[lang]}</p>`;
@@ -86,7 +61,7 @@ async function setLanguage(lang) {
   });
 }
 
-// --------------- SEARCH FILTER ---------------
+// ---------------- SEARCH ----------------
 document.getElementById("searchBar").addEventListener("keyup", (e) => {
   const term = e.target.value.toLowerCase();
   document.querySelectorAll(".tool-card").forEach(card => {
@@ -100,16 +75,18 @@ document.getElementById("searchBar").addEventListener("keyup", (e) => {
   if (firstBtn) firstBtn.classList.add("active");
 });
 
-// --------------- CATEGORY FILTER ---------------
+// ---------------- CATEGORY FILTER ----------------
 function filterCategory(category, button) {
   document.querySelectorAll(".tool-card").forEach(card => {
-    if (category === "all") card.style.display = "block";
-    else card.style.display = card.classList.contains(category) ? "block" : "none";
+    card.style.display = category === "all" || card.classList.contains(category) ? "block" : "none";
   });
 
   document.querySelectorAll(".categories button").forEach(btn => btn.classList.remove("active"));
   button.classList.add("active");
 }
 
-// --------------- INITIALIZE ---------------
-setLanguage(currentLang);
+// ---------------- INIT ----------------
+window.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("languageSwitcher").addEventListener("change", e => setLanguage(e.target.value));
+  setLanguage(currentLang);
+});
