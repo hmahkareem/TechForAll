@@ -1,6 +1,13 @@
+// Force page reload without cache
+if (!window.location.search.includes("nocache")) {
+  window.location.href = window.location.href + (window.location.href.includes("?") ? "&" : "?") + "nocache=" + new Date().getTime();
+}
+
+
 // --------------- FIREBASE SETUP ---------------
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
 
 // Firebase config
 const firebaseConfig = {
