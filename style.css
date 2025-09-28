@@ -818,3 +818,29 @@ header h1 {
   }
 }
 
+/* Default flexible grid */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  width: 100vw;       /* force full device width */
+  max-width: 100%;    /* no artificial limits */
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Fold & medium-wide screens: force 2 cards */
+@media (min-width: 700px) and (max-width: 1200px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Small mobile: 1 card */
+@media (max-width: 699px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
