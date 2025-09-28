@@ -33,6 +33,9 @@ const translations = {
 };
 
 let currentLang = "en";
+document.getElementById("languageSwitcher").addEventListener("change", (e) => {
+  setLanguage(e.target.value);
+});
 let toolsData = [];
 
 // --------------- FETCH TOOLS FROM FIRESTORE ---------------
