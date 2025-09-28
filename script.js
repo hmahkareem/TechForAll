@@ -4,13 +4,15 @@ const translations = {
     pageTitle: "Assistive Technologies GCC",
     siteTitle: "Assistive Technologies in GCC",
     searchPlaceholder: "Search tools...",
-    categories: { all: "All", dyslexia: "Dyslexia", dysgraphia: "Dysgraphia", dysphasia: "Dysphasia", auditory: "Auditory Processing Disorder" }
+    categories: { all: "All", dyslexia: "Dyslexia", dysgraphia: "Dysgraphia", dysphasia: "Dysphasia", auditory: "Auditory Processing Disorder" },
+    nav: { home: "Home", about: "About" }
   },
   ar: {
     pageTitle: "التقنيات المساعدة في الخليج",
     siteTitle: "التقنيات المساعدة في الخليج",
     searchPlaceholder: "ابحث عن الأدوات...",
-    categories: { all: "الكل", dyslexia: "عسر القراءة", dysgraphia: "عسر الكتابة", dysphasia: "اضطراب الكلام", auditory: "اضطراب المعالجة السمعية" }
+    categories: { all: "الكل", dyslexia: "عسر القراءة", dysgraphia: "عسر الكتابة", dysphasia: "اضطراب الكلام", auditory: "اضطراب المعالجة السمعية" },
+    nav: { home: "الرئيسية", about: "حول" }
   }
 };
 
@@ -35,6 +37,8 @@ function setLanguage(lang) {
   document.title = t.pageTitle;
   document.getElementById("site-title").innerText = t.siteTitle;
   document.getElementById("searchBar").placeholder = t.searchPlaceholder;
+  document.getElementById("homeBtn").innerText = t.nav.home;
+document.getElementById("aboutBtn").innerText = t.nav.about;
 
   // Categories
   const categoriesContainer = document.getElementById("categoryButtons");

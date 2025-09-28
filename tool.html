@@ -15,16 +15,22 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
-  <header>
-    <h1 id="site-title"></h1>
-    <div class="top-controls">
-      <select id="languageSwitcher" onchange="setLanguage(this.value)">
-        <option value="en">English</option>
-        <option value="ar">العربية</option>
-      </select>
-    </div>
+  <header class="site-header">
+  <!-- Title -->
+  <h1 id="site-title"></h1>
+
+
+  <!-- Language + buttons -->
+  <div class="header-right">
+    <a href="index.html" id="homeBtn" class="header-btn">Home</a>
+    <a href="about.html" id="aboutBtn" class="header-btn">About</a>
+    <select id="languageSwitcher">
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+    </select>
     
-  </header>
+  </div>
+</header>
 
   <main id="toolDetails" class="tool-details"></main>
   <!-- Loading Overlay -->

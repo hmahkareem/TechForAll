@@ -2,37 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>About - Assistive Tools GCC</title>
-  <link href="https://fonts.googleapis.com/css2?family=Alan+Sans&family=Rubik&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Assistive Technologies GCC</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Alan+Sans&family=Rubik&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <nav>
-      <ul class="nav-menu">
-        <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="about.html" class="nav-link active">About</a></li>
-        <li><a href="index.html" class="nav-link">Tools</a></li>
-        <li>
-          <select id="langSelect" onchange="changeLang(this.value)">
-            <option value="en">EN</option>
-            <option value="ar">AR</option>
-          </select>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  <!-- Header (same as main page, but search hidden) -->
+  <header class="site-header">
+  <!-- Title -->
+  <h1 id="site-title"></h1>
 
-  <main>
-    <h1 id="about-title">About This Project</h1>
-    <p id="about-text">
-      This website collects assistive technology tools available in GCC countries,
-      helping individuals with learning disabilities such as Dyslexia, Dysgraphia,
-      Dysphasia, and Auditory Processing Disorder. Users can browse tools, see details,
-      and leave feedback.
-    </p>
+  
+
+  <!-- Language + buttons -->
+  <div class="header-right">
+    <a href="index.html" id="homeBtn" class="header-btn">Home</a>
+    <a href="about.html" id="aboutBtn" class="header-btn">About</a>
+    <select id="languageSwitcher">
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+    </select>
+    
+  </div>
+</header>
+
+  <!-- About Content -->
+  <main class="about-container">
+    <div class="about-card">
+      <!-- Content is filled dynamically by script-about.js -->
+    </div>
   </main>
 
-  <script src="about.js"></script>
+  <footer>
+    &copy; 2025 Assistive Technologies GCC
+  </footer>
+
+  <!-- JS for About Page -->
+  <script src="script-about.js"></script>
 </body>
 </html>

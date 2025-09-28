@@ -8,16 +8,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Alan+Sans&family=Rubik&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1 id="site-title"></h1>
-    <div class="top-controls">
-      <input type="text" id="searchBar">
-      <select id="languageSwitcher">
-  <option value="en">English</option>
-  <option value="ar">العربية</option>
-</select>
-    </div>
-  </header>
+  <header class="site-header">
+  <!-- Title -->
+  <h1 id="site-title"></h1>
+
+  <!-- Search bar -->
+  <div class="header-center">
+    <input type="text" id="searchBar" placeholder="">
+  </div>
+
+  <!-- Language + buttons -->
+  <div class="header-right">
+    <a href="index.html" id="homeBtn" class="header-btn">Home</a>
+    <a href="about.html" id="aboutBtn" class="header-btn">About</a>
+    <select id="languageSwitcher">
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+    </select>
+    
+  </div>
+</header>
+
 
   <!-- CATEGORIES -->
   <nav class="categories" id="categoryButtons"></nav>
