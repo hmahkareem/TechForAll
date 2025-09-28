@@ -617,3 +617,92 @@ header h1 {
   }
 }
 
+/* Header layout */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #0077b6;
+  color: #fff;
+  padding: 12px 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #90e0ef;
+}
+
+/* Controls (search + lang) */
+.top-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#searchBar {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  min-width: 160px;
+}
+
+#languageSwitcher {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  background: #fff;
+  color: #333;
+  font-weight: 500;
+}
+
+/* ----- Mobile Layout ----- */
+@media (max-width: 700px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  header h1 {
+    width: 100%;
+  }
+
+  .nav-links {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .top-controls {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #searchBar {
+    width: 100%;
+  }
+
+  #languageSwitcher {
+    width: 100%;
+  }
+}
+
