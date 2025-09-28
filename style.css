@@ -706,3 +706,33 @@ header h1 {
   }
 }
 
+/* ----- Mobile & Fold Phone Responsive Layout ----- */
+@media (max-width: 900px), (max-height: 600px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  header h1 {
+    width: 100%;
+  }
+
+  .nav-links {
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .top-controls {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+  }
+
+  #searchBar,
+  #languageSwitcher {
+    width: 100%;
+  }
+}
+
