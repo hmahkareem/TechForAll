@@ -135,13 +135,16 @@ async function loadComments(tool){
       return;
     }
     snapshot.forEach(doc => {
-      const c = doc.data();
-      const div = document.createElement("div");
-      div.style.borderBottom = "1px solid #ccc";
-      div.style.padding = "8px 0";
-      div.innerHTML = `<strong>${c.name}</strong> (${c.date})<br>Email: ${c.email} | Phone: ${c.phone}<br>${c.text}`;
-      commentsContainer.appendChild(div);
-    });
+  const c = doc.data();
+  const div = document.createElement("div");
+  div.className = "comment-card"; // Use card styling
+  div.innerHTML = `
+    <strong>${c.name}</strong>
+    <div class="meta">(${c.date}) | Email: ${c.email} | Phone: ${c.phone}</div>
+    <div>${c.text}</div>
+  `;
+  commentsContainer.appendChild(div);
+});
   } catch(err){
     console.error("Error loading comments:", err);
   }
