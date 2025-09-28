@@ -16,7 +16,7 @@ const translations = {
   }
 };
 
-let currentLang = "en";
+let currentLang = "ar";
 
 // ---------------- HARD-CODED TOOLS ----------------
 const toolsData = [

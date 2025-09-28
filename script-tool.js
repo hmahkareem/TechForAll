@@ -59,7 +59,7 @@ const translations = {
   }
 };
 
-let currentLang = "en";
+let currentLang = "ar";
 
 document.getElementById("languageSwitcher").addEventListener("change", (e) => {
   setLanguage(e.target.value);
