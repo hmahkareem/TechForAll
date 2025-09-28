@@ -555,3 +555,65 @@ footer {
   border-top: 1px solid #ddd;
 }
 
+/* Header wrapper */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;        /* allow wrapping on small screens */
+  background: #0077b6;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+/* Title */
+header h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+/* Right-side controls */
+.top-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;        /* wrap if space is tight */
+}
+
+/* Search bar */
+#searchBar {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  flex: 1;                /* allow it to grow/shrink */
+  min-width: 150px;       /* keep usable size on small screens */
+}
+
+/* Language dropdown */
+#languageSwitcher {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  background: #fff;
+  color: #333;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;      /* stack vertically */
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .top-controls {
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  #searchBar {
+    width: 100%;
+  }
+}
+
