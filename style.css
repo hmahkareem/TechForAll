@@ -1559,3 +1559,14 @@ footer {
     margin: 15px;  /* slightly smaller margin on very narrow screens */
   }
 }
+
+:lang(ar) {
+  font-family: "Almarai", sans-serif;
+}
+
+:lang(ar) input,
+:lang(ar) textarea,
+:lang(ar) button {
+  font-family: "Almarai", sans-serif;
+}
+
