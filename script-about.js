@@ -1,6 +1,6 @@
 const translations = {
   en: {
-    pageTitle: "About | Tech for All",
+    pageTitle: "About Me | Tech for All",
     siteTitle: "Tech for All",
     home: "Home",
     aboutbtn: "About",
@@ -21,7 +21,7 @@ const translations = {
     },
   },
   ar: {
-    pageTitle: "حول | التكنولوجيا للجميع",
+    pageTitle: "من أنا | التكنولوجيا للجميع",
     siteTitle: "التكنولوجيا للجميع",
     home: "الرئيسية",
     aboutbtn: "من أنا",

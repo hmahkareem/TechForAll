@@ -502,6 +502,7 @@ html[lang="ar"] .site-header {
   border-radius: 5px;
   font-weight: 500;
   transition: background 0.3s;
+  white-space: nowrap; 
 }
 
 .header-btn:hover {
@@ -866,4 +867,695 @@ header h1 {
 .search-container input:focus {
   border-color: var(--primary-purple-hover);
   box-shadow: 0 0 6px rgba(106, 13, 173, 0.4);
+}
+
+/* ===================== */
+/* Glassy Look Variables */
+/* ===================== */
+:root {
+  --primary-color: #7b2cbf;          /* purple base */
+  --primary-hover: #5a189a;
+  --secondary-color: rgba(123, 44, 191, 0.2);
+  --secondary-hover: rgba(123, 44, 191, 0.4);
+  --card-bg: rgba(255, 255, 255, 0.25);
+  --header-bg: rgba(123, 44, 191, 0.3);
+  --text-color: #fff;
+  --shadow: rgba(0, 0, 0, 0.2);
+}
+
+/* ===================== */
+/* Body + Background     */
+/* ===================== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Rubik", sans-serif;
+  background: linear-gradient(135deg, #3a0ca3, #7209b7, #f72585);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===================== */
+/* Header                */
+/* ===================== */
+header.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: var(--header-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 4px 20px var(--shadow);
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-logo {
+  height: 60px;
+  width: auto;
+}
+
+.site-header h1 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 0;
+  color: #fff;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-btn {
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.header-btn:hover {
+  background: var(--primary-hover);
+}
+
+#languageSwitcher {
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  backdrop-filter: blur(6px);
+}
+
+/* ===================== */
+/* Search                */
+/* ===================== */
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  width: 100%;
+}
+
+.search-container input {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  backdrop-filter: blur(6px);
+  font-size: 1rem;
+}
+
+.search-container input:focus {
+  outline: none;
+  border-color: #fff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+/* ===================== */
+/* Tool Cards            */
+/* ===================== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.tool-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #fff;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tool-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px var(--shadow);
+}
+
+.tool-card h3 {
+  margin-top: 0;
+  color: #fff;
+}
+
+.tool-card p {
+  flex: 1;
+  color: #e0e0e0;
+}
+
+/* ===================== */
+/* Footer                */
+/* ===================== */
+footer {
+  margin-top: auto;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  padding: 15px;
+  font-size: 0.9rem;
+  color: #eee;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ===================== */
+/* Color Variables       */
+/* ===================== */
+:root {
+  --primary-color: #9055ba;       /* Purple main accent */
+  --primary-hover: #4b0082;       /* Darker purple for hover */
+  --secondary-color: rgba(144,85,186,0.2); /* Glassy purple */
+  --secondary-hover: rgba(144,85,186,0.35);
+  --card-bg: rgba(255, 255, 255, 0.6); /* Semi-transparent white cards */
+  --card-shadow: rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+  --text-color: #333333;              /* Dark text */
+  --header-text: #333333;             /* Dark text for header */
+  --background-color: #ffffff;        /* White background */
+}
+
+/* ===================== */
+/* Body Background       */
+/* ===================== */
+body {
+  background: var(--background-color);
+  margin: 0;
+  font-family: 'Alan Sans', 'Rubik', sans-serif;
+  color: var(--text-color);
+}
+
+/* ===================== */
+/* Header                */
+/* ===================== */
+header.site-header {
+  background: rgba(255,255,255,0.5); /* White glass */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 2px solid rgba(144,85,186,0.3); /* Purple accent */
+  color: var(--header-text);
+}
+
+/* ===================== */
+/* Nav Buttons           */
+/* ===================== */
+.header-btn {
+  padding: 6px 14px;
+  background-color: rgba(144,85,186,0.2); /* Glassy purple */
+  border: 1px solid rgba(144,85,186,0.3);
+  color: var(--primary-color);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.header-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* ===================== */
+/* Search Bar            */
+/* ===================== */
+.search-container input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 36px 10px 36px;
+  border-radius: 12px;
+  border: 2px solid rgba(144,85,186,0.3);
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 1rem;
+  color: var(--text-color);
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-container input::placeholder {
+  color: #777;
+}
+
+.search-container input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 6px rgba(144,85,186,0.4);
+}
+
+/* ===================== */
+/* Cards                 */
+/* ===================== */
+.tool-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(144,85,186,0.2);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px var(--card-shadow);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(144,85,186,0.3);
+}
+
+.tool-card h3 {
+  color: var(--primary-color);
+  margin-top: 0;
+}
+
+/* ===================== */
+/* Text Colors (more visible) */
+/* ===================== */
+:root {
+  --primary-color: #9055ba;          /* Main purple */
+  --primary-hover: #4b0082;          /* Dark purple hover */
+  --text-color: #1e1e1e;             /* Darker text for readability */
+  --secondary-text: #444444;         /* For paragraphs */
+}
+
+/* ===================== */
+/* Cards (Glassy Purple) */
+/* ===================== */
+.tool-card {
+  background: rgba(144, 85, 186, 0.25);  /* Glassy purple tint */
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(144, 85, 186, 0.4);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(144, 85, 186, 0.25);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(144, 85, 186, 0.4);
+}
+
+/* Card Titles */
+.tool-card h3 {
+  color: var(--primary-color);
+  font-weight: bold;
+  margin-top: 0;
+}
+
+/* Card Paragraphs */
+.tool-card p {
+  color: var(--secondary-text);
+  line-height: 1.5;
+}
+
+/* ===================== */
+/* Tool Details Page (also glassy purple) */
+/* ===================== */
+.tool-details {
+  background: rgba(144, 85, 186, 0.2);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(144, 85, 186, 0.4);
+  box-shadow: 0 4px 16px rgba(144, 85, 186, 0.25);
+  padding: 25px;
+  border-radius: 12px;
+  
+}
+
+.tool-details h2 {
+  color: var(--primary-color);
+}
+
+.tool-details p {
+  color: var(--secondary-text);
+}
+
+/* Header title & buttons */
+header h1,
+header .nav-links a,
+header .header-btn {
+  color: #000000 !important;  /* force black text */
+  font-weight: 600;
+}
+
+header .header-btn {
+  background: #ffffff;        /* white button background */
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+header .header-btn:hover {
+  background: rgba(0, 0, 0, 0.1); /* light gray hover */
+  color: #000000;
+}
+/* Category buttons (glassy purple with black text) */
+.categories button {
+  padding: 10px 20px;
+  border: 1px solid rgba(144, 85, 186, 0.6);
+  background: rgba(144, 85, 186, 0.2);
+  color: #000000;   /* black text */
+  border-radius: 8px;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.categories button:hover {
+  background: rgba(144, 85, 186, 0.35);
+  border-color: rgba(144, 85, 186, 0.9);
+}
+
+.categories button.active {
+  background: var(--active-category);
+  color: #ffffff; /* keep active button white on purple */
+}
+
+/* Language dropdown - glassy purple with black text & black arrow */
+#languageSwitcher {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(144, 85, 186, 0.6); /* subtle purple border */
+  background: rgba(144, 85, 186, 0.2);       /* glassy purple */
+  color: #000000;                            /* black text */
+  font-weight: 600;
+  backdrop-filter: blur(8px);                /* glass effect */
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  /* Custom arrow */
+  appearance: none;                          /* remove default */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 30px; /* space for arrow */
+}
+
+#languageSwitcher:hover,
+#languageSwitcher:focus {
+  background: rgba(144, 85, 186, 0.35);
+  border-color: rgba(144, 85, 186, 0.9);
+  outline: none;
+}
+
+.site-header {
+  background: rgba(144, 85, 186, 0.25) !important;   /* same glassy purple as cards */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(144, 85, 186, 0.4);
+  border-radius: 0 0 12px 12px;           /* slight curve like cards */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  color: #000;                            /* black text for contrast */
+}
+
+/* Header Buttons - Glassy Purple */
+.header-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: rgba(144, 85, 186, 0.2); /* glassy purple */
+  border: 1px solid rgba(144, 85, 186, 0.4);
+  color: #000; /* black text for readability */
+  text-decoration: none;
+  font-weight: 600;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.header-btn:hover {
+  background: rgba(75, 0, 130, 0.25); /* darker glassy purple */
+  border-color: rgba(75, 0, 130, 0.6);
+  color: #000;
+}
+
+
+/* ===================== */
+/* Tool Page Responsive Fields & Buttons */
+/* ===================== */
+.tool-details input,
+.tool-details textarea,
+.tool-details select {
+  width: 100%;
+  display: block; /* ✅ force each to take its own line */
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(144, 85, 186, 0.6);
+  background: rgba(255, 255, 255, 0.75); /* ✅ semi-white glassy */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 1rem;
+  color: #000;
+  box-sizing: border-box;
+}
+
+/* Placeholder alignment fix (especially Arabic RTL) */
+:lang(ar) .tool-details input,
+:lang(ar) .tool-details textarea {
+  text-align: right;   /* ✅ text starts from right */
+  direction: rtl;      /* ✅ cursor also stays on the right */
+}
+:lang(en) .tool-details input,
+:lang(en) .tool-details textarea {
+  text-align: left;
+  direction: ltr;
+}
+
+/* Buttons full-width + stacked */
+.tool-details button {
+  width: 100%; /* ✅ take full width */
+  display: block; /* ✅ stack vertically */
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(144, 85, 186, 0.25); /* glassy purple */
+  border: 1px solid rgba(144, 85, 186, 0.4);
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tool-details button:hover {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+/* On wider screens (>768px), allow inline buttons if wanted */
+@media (min-width: 768px) {
+  .tool-details button {
+    width: auto;        /* ✅ inline width */
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+
+footer {
+  margin-top: auto;
+  background: var(--secondary-color);     /* Use secondary purple */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(144, 85, 186, 0.4);
+  text-align: center;
+  padding: 20px;
+  font-size: 0.95rem;
+  color: black;                            /* White text for readability */
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ===================== */
+/* Fixed, Centered Grid  */
+/* ===================== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 280px); /* 4 fixed columns on large screens */
+  justify-content: center;                 /* center the whole grid */
+  gap: 24px;
+  padding: 24px 16px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ===================== */
+/* Tool Card (fixed size)
+/* ===================== */
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  /* glassy purple look */
+  background: rgba(144, 85, 186, 0.25);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(144, 85, 186, 0.4);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(144, 85, 186, 0.25);
+
+  padding: 16px;
+  height: 265px; /* fixed height */
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(144, 85, 186, 0.4);
+}
+
+/* Image inside card (consistent crop) */
+.tool-card .tool-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+/* Titles & text */
+.tool-card h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  color: var(--primary-color, #9055ba);
+}
+
+.tool-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--secondary-text, #444);
+  line-height: 1.45;
+
+  /* clamp to 3 lines to keep heights consistent */
+  display: -webkit-box;
+  
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===================== */
+/* Responsive Breakpoints */
+/* ===================== */
+@media (max-width: 1200px) {
+  .cards-grid { grid-template-columns: repeat(3, 380px); }
+}
+
+@media (max-width: 900px) {
+  .cards-grid { grid-template-columns: repeat(2, 380px); }
+}
+
+@media (max-width: 620px) {
+  .cards-grid { grid-template-columns: 380px; }
+}
+
+/* ===================== */
+/* Header Buttons - Glassy Purple */
+/* ===================== */
+.header-btn {
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgba(144, 85, 186, 0.2) !important; /* Glassy purple */
+  border: 1px solid rgba(144, 85, 186, 0.4) !important;
+  color: #000 !important; /* Black text for readability */
+  text-decoration: none;
+  font-weight: 600;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.header-btn:hover {
+  background: var(--primary-hover) !important; /* Darker glassy purple on hover */
+  border-color: rgba(144, 85, 186, 0.7) !important;
+  color: white !important;
+}
+
+.tool-btn i {
+  font-size: 16px;   /* adjust icon size */
+}
+
+.tool-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;       /* make them round */
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.about-card {
+  max-width: 800px;
+  margin: 20px;
+  padding: 30px;
+  border-radius: 16px;
+  background: rgba(144, 85, 186, 0.25); /* glassy purple tint */
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(144, 85, 186, 0.4);
+  box-shadow: 0 4px 16px rgba(144, 85, 186, 0.25);
+  text-align: center;
+  color: #1e1e1e; /* readable dark text */
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(144, 85, 186, 0.4);
+}
+
+.about-card h2 {
+  color: var(--primary-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.about-card p {
+  color: #444;
+  line-height: 1.6;
+}
+
+
+
+/* ✅ Add margin on sides for small screens */
+@media (max-width: 700px) {
+  .tool-details {
+    padding: 20px;
+    margin: 15px;  /* adds space on left/right */
+  }
+}
+
+@media (max-width: 500px) {
+  .tool-details{
+    margin: 15px;  /* slightly smaller margin on very narrow screens */
+  }
 }

@@ -28,7 +28,57 @@ const translations = {
   },
 };
 
-let currentLang = "ar";
+// ---------------- LANGUAGE ----------------
+// load saved language or default to "ar"
+let currentLang = localStorage.getItem("lang") || "ar";
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem("lang", lang); // save choice
+  document.documentElement.lang = lang;
+  document.body.style.direction = lang === "ar" ? "rtl" : "ltr";
+
+  const t = translations[lang];
+  document.title = t.pageTitle;
+  document.getElementById("site-title").innerText = t.siteTitle;
+  document.getElementById("searchBar").placeholder = t.searchPlaceholder;
+  document.getElementById("homeBtn").innerText = t.nav.home;
+  document.getElementById("aboutBtn").innerText = t.nav.about;
+
+  // Categories
+  const categoriesContainer = document.getElementById("categoryButtons");
+  categoriesContainer.innerHTML = "";
+  Object.entries(t.categories).forEach(([key, label], index) => {
+    const btn = document.createElement("button");
+    btn.innerText = label;
+    btn.dataset.key = key;
+    btn.onclick = () => filterCategory(key, btn);
+    if (index === 0) btn.classList.add("active");
+    categoriesContainer.appendChild(btn);
+  });
+
+  // Tools grid
+  const toolsList = document.getElementById("toolsList");
+  toolsList.innerHTML = "";
+  toolsData.forEach((tool) => {
+    const card = document.createElement("div");
+    card.className = `tool-card ${tool.category}`;
+    card.innerHTML = `
+      <img src="${tool.img}" alt="${tool.title[lang]}" class="tool-img">
+      <h3>${tool.title[lang]}</h3>
+      <p>${tool.desc[lang]}</p>
+    `;
+    card.style.cursor = "pointer";
+    card.onclick = () => {
+      window.location.href = `tool.html?id=${tool.id}`;
+    };
+    toolsList.appendChild(card);
+  });
+
+  // set dropdown to match current language
+  const langSwitcher = document.getElementById("languageSwitcher");
+  if (langSwitcher) langSwitcher.value = lang;
+}
 
 // ---------------- HARD-CODED TOOLS ----------------
 const toolsData = [
@@ -84,50 +134,6 @@ const toolsData = [
   },
 ];
 
-// ---------------- BUILD UI ----------------
-function setLanguage(lang) {
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.body.style.direction = lang === "ar" ? "rtl" : "ltr";
-
-  const t = translations[lang];
-  document.title = t.pageTitle;
-  document.getElementById("site-title").innerText = t.siteTitle;
-  document.getElementById("searchBar").placeholder = t.searchPlaceholder;
-  document.getElementById("homeBtn").innerText = t.nav.home;
-  document.getElementById("aboutBtn").innerText = t.nav.about;
-
-  // Categories
-  const categoriesContainer = document.getElementById("categoryButtons");
-  categoriesContainer.innerHTML = "";
-  Object.entries(t.categories).forEach(([key, label], index) => {
-    const btn = document.createElement("button");
-    btn.innerText = label;
-    btn.dataset.key = key;
-    btn.onclick = () => filterCategory(key, btn);
-    if (index === 0) btn.classList.add("active");
-    categoriesContainer.appendChild(btn);
-  });
-
-  // Tools grid
-  const toolsList = document.getElementById("toolsList");
-  toolsList.innerHTML = "";
-  toolsData.forEach((tool) => {
-    const card = document.createElement("div");
-    card.className = `tool-card ${tool.category}`;
-    card.innerHTML = `
-    <img src="${tool.img}" alt="${tool.title[lang]}" class="tool-img">
-    <h3>${tool.title[lang]}</h3>
-    <p>${tool.desc[lang]}</p>
-  `;
-    card.style.cursor = "pointer";
-    card.onclick = () => {
-      window.location.href = `tool.html?id=${tool.id}`;
-    };
-    toolsList.appendChild(card);
-  });
-}
-
 // ---------------- SEARCH ----------------
 document.getElementById("searchBar").addEventListener("keyup", (e) => {
   const term = e.target.value.toLowerCase();
@@ -161,8 +167,10 @@ function filterCategory(category, button) {
 
 // ---------------- INIT ----------------
 window.addEventListener("DOMContentLoaded", () => {
-  document
-    .getElementById("languageSwitcher")
-    .addEventListener("change", (e) => setLanguage(e.target.value));
+  const langSwitcher = document.getElementById("languageSwitcher");
+  if (langSwitcher) {
+    langSwitcher.value = currentLang;
+    langSwitcher.addEventListener("change", (e) => setLanguage(e.target.value));
+  }
   setLanguage(currentLang);
 });

@@ -6,7 +6,6 @@ import {
   getDocs,
   addDoc,
   query,
-  where,
   orderBy,
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
@@ -86,9 +85,9 @@ const translations = {
     email: "Email",
     phone: "Phone",
     comment: "Write your comment here...",
-    share: "Share",
-    print: "Print",
-    submit: "Submit",
+    share: "Share the tool",
+    print: "Print the tool",
+    submit: "Submit your comment",
     prevComments: "Previous Comments",
     noComments: "No comments yet.",
     fillAll: "Please fill in all fields.",
@@ -104,9 +103,9 @@ const translations = {
     email: "البريد الإلكتروني",
     phone: "رقم الجوال",
     comment: "اكتب تعليقك هنا...",
-    share: "مشاركة",
-    print: "طباعة",
-    submit: "إرسال",
+    share: "مشاركة الأداة",
+    print: "طباعة الأداة",
+    submit: "إرسال التعليق",
     prevComments: "التعليقات السابقة",
     noComments: "لا توجد تعليقات بعد.",
     fillAll: "يرجى ملء جميع الحقول.",
@@ -118,10 +117,14 @@ const translations = {
   },
 };
 
-let currentLang = "ar";
+// ✅ Load language from localStorage or fallback to Arabic
+let currentLang = localStorage.getItem("lang") || "ar";
 
+// Language switcher
 document.getElementById("languageSwitcher").addEventListener("change", (e) => {
-  setLanguage(e.target.value);
+  const newLang = e.target.value;
+  localStorage.setItem("lang", newLang); // ✅ Save language
+  setLanguage(newLang);
 });
 
 // Get tool ID from URL
@@ -140,16 +143,22 @@ function setLanguage(lang) {
   const tool = toolsData.find((t) => t.id === id);
   const t = translations[lang];
 
+  // ✅ Reflect current language in dropdown
+  document.getElementById("languageSwitcher").value = lang;
+
+  // ✅ Update site and nav texts
   document.getElementById("site-title").innerText = t.siteTitle;
   document.getElementById("homeBtn").innerText = t.home;
   document.getElementById("aboutBtn").innerText = t.aboutbtn;
-  document.querySelector("#loadingOverlay span").innerText =
-    translations[lang].saving;
+  document.querySelector("#loadingOverlay span").innerText = t.saving;
 
+  // ✅ Dynamic page title with tool name
+  document.title = `${tool.title[lang]}`;
+
+  // Render tool details
   const container = document.getElementById("toolDetails");
-
   container.innerHTML = `
-  <img src="${tool.img}" alt="${tool.title[lang]}" class="tool-img-detail">
+    <img src="${tool.img}" alt="${tool.title[lang]}" class="tool-img-detail">
     <h2>${tool.title[lang]}</h2>
     <p>${tool.desc[lang]}</p>
 
@@ -161,13 +170,12 @@ function setLanguage(lang) {
       <input type="tel" id="userPhone" placeholder="${t.phone}" style="flex:1; padding:8px;">
     </div>
 
-    <textarea id="commentInput" placeholder="${t.addComment}" style="width:100%; padding:8px;"></textarea>
-
+    <textarea id="commentInput" placeholder="${t.comment}" style="width:100%; padding:8px;"></textarea>
 
     <div style="margin-top:10px; display:flex; justify-content:space-between; flex-wrap:wrap;">
-      <div>
-        <button id="shareBtn">${t.share}</button>
-        <button id="printBtn">${t.print}</button>
+      <div style="display: flex">
+        <button id="shareBtn"><i class="fas fa-share-alt"></i></button>
+        <button id="printBtn"><i class="fas fa-print"></i></button>
       </div>
       <div>
         <button id="submitBtn">${t.submit}</button>
@@ -290,5 +298,5 @@ function printTool() {
   window.print();
 }
 
-// Initialize page
+// Initialize page with saved language
 setLanguage(currentLang);
