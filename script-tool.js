@@ -310,9 +310,15 @@ function shareTool() {
   }
 }
 
-// Print page
 function printTool() {
+  // Add a class to the body to control print visibility with CSS
+  document.body.classList.add('print-only-tool-content');
+  
+  // Call the browser's print dialog
   window.print();
+  
+  // Remove the class after the print dialog is closed
+  document.body.classList.remove('print-only-tool-content');
 }
 
 // Initialize page with saved language
