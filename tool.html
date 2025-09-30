@@ -40,7 +40,6 @@
       href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <link
@@ -50,16 +49,16 @@
   </head>
   <body>
     <header class="site-header">
-      <!-- Title -->
       <div class="logo-title">
-        <img src="images/Logo.png" alt="Logo" class="site-logo" />
+        <img src="images/Logo.png" alt="Tech For All Logo" class="site-logo" />
         <h1 id="site-title"></h1>
       </div>
 
-      <!-- Language + buttons -->
       <div class="header-right">
-        <a href="index.html" id="homeBtn" class="header-btn">Home</a>
-        <a href="about.html" id="aboutBtn" class="header-btn">About</a>
+        <nav>
+          <a href="index.html" id="homeBtn" class="header-btn">Home</a>
+          <a href="about.html" id="aboutBtn" class="header-btn">About</a>
+        </nav>
         <select id="languageSwitcher">
           <option value="ar">العربية</option>
           <option value="en">English</option>
@@ -68,7 +67,6 @@
     </header>
 
     <main id="toolDetails" class="tool-details"></main>
-    <!-- Loading Overlay -->
     <div id="loadingOverlay">
       <div class="spinner"></div>
       <span>Saving your comment...</span>

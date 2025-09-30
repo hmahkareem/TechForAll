@@ -38,16 +38,16 @@
   </head>
   <body>
     <header class="site-header">
-      <!-- Title -->
       <div class="logo-title">
-        <img src="images/Logo.png" alt="Logo" class="site-logo" />
+        <img src="images/Logo.png" alt="Tech For All Logo" class="site-logo" />
         <h1 id="site-title"></h1>
       </div>
 
-      <!-- Language + buttons -->
       <div class="header-right">
-        <a href="index.html" id="homeBtn" class="header-btn">Home</a>
-        <a href="about.html" id="aboutBtn" class="header-btn">About</a>
+        <nav>
+          <a href="index.html" id="homeBtn" class="header-btn">Home</a>
+          <a href="about.html" id="aboutBtn" class="header-btn">About</a>
+        </nav>
         <select id="languageSwitcher">
           <option value="ar">العربية</option>
           <option value="en">English</option>
@@ -55,18 +55,15 @@
       </div>
     </header>
 
-    <!-- CATEGORIES -->
     <nav class="categories" id="categoryButtons"></nav>
 
-    <!-- ✅ Search Bar placed here -->
     <div class="search-container">
+      <label for="searchBar" class="sr-only">Search</label>
       <input type="text" id="searchBar" />
     </div>
-    <!-- TOOLS GRID -->
     <main id="toolsList" class="cards-grid"></main>
 
     <footer>&copy; 2025 Tech For All</footer>
-    <!-- Firebase + Script -->
     <script type="module" src="script.js?v=1.0"></script>
   </body>
 </html>

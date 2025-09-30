@@ -96,6 +96,7 @@ const translations = {
     home: "Home",
     aboutbtn: "About",
     saving: "Saving your comment ...",
+    missing:"Missing"
   },
   ar: {
     addComment: "أضف تعليقك",
@@ -114,6 +115,7 @@ const translations = {
     home: "الرئيسية",
     aboutbtn: "من أنا",
     saving: "جارٍ حفظ تعليقك ...",
+    missing:"المفقود"
   },
 };
 
@@ -164,27 +166,33 @@ function setLanguage(lang) {
 
     <h3>${t.addComment}</h3>
 
-    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
-      <input type="text" id="userName" placeholder="${t.name}" style="flex:1; padding:8px;">
-      <input type="email" id="userEmail" placeholder="${t.email}" style="flex:1; padding:8px;">
-      <input type="tel" id="userPhone" placeholder="${t.phone}" style="flex:1; padding:8px;">
-    </div>
-
-    <textarea id="commentInput" placeholder="${t.comment}" style="width:100%; padding:8px;"></textarea>
-
-    <div style="margin-top:10px; display:flex; justify-content:space-between; flex-wrap:wrap;">
-      <div style="display: flex">
-        <button id="shareBtn"><i class="fas fa-share-alt"></i></button>
-        <button id="printBtn"><i class="fas fa-print"></i></button>
+    <form id="commentForm">
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
+        <label for="userName" class="sr-only">${t.name}</label>
+        <input type="text" id="userName" placeholder="${t.name}" style="flex:1; padding:8px;">
+        <label for="userEmail" class="sr-only">${t.email}</label>
+        <input type="email" id="userEmail" placeholder="${t.email}" style="flex:1; padding:8px;">
+        <label for="userPhone" class="sr-only">${t.phone}</label>
+        <input type="tel" id="userPhone" placeholder="${t.phone}" style="flex:1; padding:8px;">
       </div>
-      <div>
-        <button id="submitBtn">${t.submit}</button>
+
+      <label for="commentInput" class="sr-only">${t.comment}</label>
+      <textarea id="commentInput" placeholder="${t.comment}" style="width:100%; padding:8px;"></textarea>
+
+      <div style="margin-top:10px; display:flex; justify-content:space-between; flex-wrap:wrap;">
+        <div style="display: flex">
+          <button id="shareBtn" aria-label="${t.share}"><i class="fas fa-share-alt"></i></button>
+          <button id="printBtn" aria-label="${t.print}"><i class="fas fa-print"></i></button>
+        </div>
+        <div>
+          <button id="submitBtn">${t.submit}</button>
+        </div>
       </div>
-    </div>
+    </form>
 
     <h3 style="margin-top:25px;">${t.prevComments}</h3>
     <div id="commentsList"></div>
-    <div id="feedbackMsg" style="margin-top:10px;color:green;"></div>
+    <div id="feedbackMsg" aria-live="polite" style="margin-top:10px;color:green;"></div>
   `;
 
   // Add button listeners
@@ -192,7 +200,10 @@ function setLanguage(lang) {
   document.getElementById("printBtn").addEventListener("click", printTool);
   document
     .getElementById("submitBtn")
-    .addEventListener("click", () => submitFeedback(tool));
+    .addEventListener("click", (e) => {
+      e.preventDefault(); // Prevent default form submission
+      submitFeedback(tool);
+    });
 
   loadComments(tool);
 }
@@ -229,10 +240,16 @@ async function submitFeedback(tool) {
   const phone = document.getElementById("userPhone").value.trim();
   const commentText = document.getElementById("commentInput").value.trim();
   const msg = document.getElementById("feedbackMsg");
-
-  if (!name || !email || !phone || !commentText) {
+  
+  let errors = [];
+  if (!name) errors.push(translations[currentLang].name);
+  if (!email) errors.push(translations[currentLang].email);
+  if (!phone) errors.push(translations[currentLang].phone);
+  if (!commentText) errors.push(translations[currentLang].comment);
+  
+  if (errors.length > 0) {
     msg.style.color = "red";
-    msg.innerText = translations[currentLang].fillAll;
+    msg.innerText = `${translations[currentLang].fillAll} ${translations[currentLang].missing}: ${errors.join(', ')}.`;
     return;
   }
 

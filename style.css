@@ -100,6 +100,7 @@ header {
   background: var(--active-category);
   color: var(--active-text-color);
   font-weight: bold;
+  border: 2px solid #ffffff; /* Add border for non-color identification */
 }
 
 /* ===================== */
@@ -767,9 +768,9 @@ header h1 {
 
 header h1 {
   margin: 0;
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: var(--header-text);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 .site-logo {
@@ -890,7 +891,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Rubik", sans-serif;
-  background: linear-gradient(135deg, #3a0ca3, #7209b7, #f72585);
   color: var(--text-color);
   min-height: 100vh;
   display: flex;
@@ -1250,6 +1250,7 @@ header .header-btn:hover {
 .categories button.active {
   background: var(--active-category);
   color: #ffffff; /* keep active button white on purple */
+  border: 2px solid #ffffff;
 }
 
 /* Language dropdown - glassy purple with black text & black arrow */
@@ -1424,7 +1425,7 @@ footer {
   box-shadow: 0 4px 16px rgba(144, 85, 186, 0.25);
 
   padding: 16px;
-  height: 265px; /* fixed height */
+  min-height: 265px; /* Use min-height to allow content to expand */
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -1570,3 +1571,15 @@ footer {
   font-family: "Almarai", sans-serif;
 }
 
+
+/* New rule for keyboard focus visibility */
+/* This will provide a clear outline for keyboard users navigating the site */
+:focus-visible {
+  outline: 2px solid #0056b3; /* A bright, visible blue outline */
+  outline-offset: 3px; /* Pushes the outline away from the element */
+}
+
+/* Remove default outline from non-interactive elements */
+*:not(:focus-visible) {
+  outline: none;
+}
