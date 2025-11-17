@@ -34,7 +34,10 @@
       href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://unpkg.com/flowbite@latest/dist/flowbite.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/flowbite@latest/dist/flowbite.min.css"
+    />
   </head>
   <body>
     <header class="site-header">
@@ -48,6 +51,7 @@
           <a href="index.html" id="homeBtn" class="header-btn">Home</a>
           <a href="about.html" id="aboutBtn" class="header-btn">About</a>
         </nav>
+        <label for="languageSwitcher" class="sr-only">Language selection</label>
         <select id="languageSwitcher">
           <option value="ar">العربية</option>
           <option value="en">English</option>
@@ -61,6 +65,9 @@
       <label for="searchBar" class="sr-only">Search</label>
       <input type="text" id="searchBar" />
     </div>
+    <h2 class="sr-only" id="tools-heading">
+      Available assistive technology tools
+    </h2>
     <main id="toolsList" class="cards-grid"></main>
 
     <footer>&copy; 2025 Tech For All</footer>
