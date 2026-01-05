@@ -1610,3 +1610,54 @@ footer {
   gap: 12px; /* Set the space between the Home and About links */
 }
 
+/* ✅ Center everything inside tool cards (Home page) */
+.tool-card {
+  text-align: center;
+  align-items: center;      /* centers flex children horizontally */
+}
+
+/* ✅ Keep the image centered and not stretched weirdly */
+.tool-card .tool-img {
+  display: block;
+  margin: 0 auto 12px auto; /* center image + spacing */
+}
+
+/* ✅ Keep title + description centered */
+.tool-card h3,
+.tool-card p {
+  text-align: center;
+}
+
+/* ✅ If you have a button/link inside the card, center it */
+.tool-card a,
+.tool-card button {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ✅ Optional: if your card has a "bottom button", keep it at the bottom */
+.tool-card a,
+.tool-card button {
+  margin-top: auto; /* pushes it down if card uses flex column */
+}
+
+/* ✅ Perfect center for image + title only */
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* horizontal centering */
+  justify-content: center;  /* vertical centering */
+  text-align: center;
+}
+
+/* ✅ Center image */
+.tool-card .tool-img {
+  display: block;
+  margin: 0 auto 14px auto;
+}
+
+/* ✅ Center title */
+.tool-card h3 {
+  margin: 0;
+  text-align: center;
+}
