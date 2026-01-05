@@ -4,6 +4,7 @@ const translations = {
     pageTitle: "Teck For All",
     siteTitle: "Tech For All",
     searchPlaceholder: "Explore assistive technologies ...",
+    emptyTools: "No tools available yet. We will add tools soon.",
     categories: {
       all: "All",
       dyslexia: "Dyslexia",
@@ -17,6 +18,7 @@ const translations = {
     pageTitle: "التقنيات للجميع",
     siteTitle: "التقنيات للجميع",
     searchPlaceholder: "استكشف التقنيات المساعدة ...",
+    emptyTools: "لا توجد أدوات متاحة حالياً. سيتم إضافة أدوات قريباً.",
     categories: {
       all: "الكل",
       dyslexia: "عسر القراءة",
@@ -86,7 +88,7 @@ const toolsData = [
     desc: {
       en: "Arabic speech recognition system designed to help dyslexic learners recognize and pronounce isolated letters.",
       ar: "نظام للتعرف على الكلام باللغة العربية يهدف إلى مساعدة المصابين بعسر القراءة في نطق وتمييز الحروف.",
-      },
+    },
     img: "images/yusr-speech-recognition.png",
     url: "https://www.researchgate.net/profile/Mounira-Taileb/publication/299704852_YUSR_Speech_Recognition_Software_for_Dyslexics/links/5ff4ed90299bf1408874deb1/YUSR-Speech-Recognition-Software-for-Dyslexics.pdf",
   },
@@ -131,17 +133,19 @@ function renderTools() {
 
   const lang = currentLang;
   const t = translations[lang];
+  const term = searchTerm.toLowerCase().trim();
+
+  let shownCount = 0;
 
   toolsData.forEach((tool) => {
     // filter by active category
     const matchesCategory = activeCategory === "all" || tool.category === activeCategory;
 
-    // search includes: title (en/ar), category key, category label (en/ar for current lang)
+    // search includes: title (en/ar), category key, category label (current lang)
     const titleEn = tool.title.en.toLowerCase();
     const titleAr = tool.title.ar.toLowerCase();
     const categoryKey = (tool.category || "").toLowerCase();
     const categoryLabel = (t.categories[tool.category] || tool.category).toLowerCase();
-    const term = searchTerm.toLowerCase().trim();
 
     const matchesSearch =
       !term ||
@@ -152,10 +156,12 @@ function renderTools() {
 
     if (!matchesCategory || !matchesSearch) return;
 
+    shownCount++;
+
     const card = document.createElement("div");
     card.className = `tool-card ${tool.category}`;
 
-    // store searchable data (optional but handy)
+    // store searchable data (optional)
     card.dataset.categoryKey = tool.category;
     card.dataset.categoryLabel = t.categories[tool.category] || tool.category;
 
@@ -171,6 +177,14 @@ function renderTools() {
 
     toolsList.appendChild(card);
   });
+
+  // ✅ Show empty message if no tools
+  if (shownCount === 0) {
+    const emptyDiv = document.createElement("div");
+    emptyDiv.className = "empty-tools";
+    emptyDiv.innerText = t.emptyTools;
+    toolsList.appendChild(emptyDiv);
+  }
 }
 
 function renderCategories() {
@@ -195,7 +209,7 @@ function renderCategories() {
 // ---------------- LANGUAGE ----------------
 function setLanguage(lang) {
   currentLang = lang;
-  localStorage.setItem("lang", lang); // save choice
+  localStorage.setItem("lang", lang);
   document.documentElement.lang = lang;
   document.body.style.direction = lang === "ar" ? "rtl" : "ltr";
 
@@ -206,11 +220,9 @@ function setLanguage(lang) {
   document.getElementById("homeBtn").innerText = t.nav.home;
   document.getElementById("aboutBtn").innerText = t.nav.about;
 
-  // ✅ Re-render categories + tools (keeps search/category working)
   renderCategories();
   renderTools();
 
-  // set dropdown to match current language
   const langSwitcher = document.getElementById("languageSwitcher");
   if (langSwitcher) langSwitcher.value = lang;
 }
@@ -218,7 +230,6 @@ function setLanguage(lang) {
 // ---------------- SEARCH ----------------
 document.getElementById("searchBar").addEventListener("keyup", (e) => {
   searchTerm = e.target.value || "";
-  // ✅ DO NOT reset category; combine filters naturally
   renderTools();
 });
 
@@ -242,6 +253,5 @@ window.addEventListener("DOMContentLoaded", () => {
     langSwitcher.addEventListener("change", (e) => setLanguage(e.target.value));
   }
 
-  // initial render
   setLanguage(currentLang);
 });

@@ -1661,3 +1661,15 @@ footer {
   margin: 0;
   text-align: center;
 }
+
+/* Optional: style for empty message */
+.empty-tools {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 25px 15px;
+  border-radius: 12px;
+  background: rgba(144, 85, 186, 0.15);
+  border: 1px solid rgba(144, 85, 186, 0.35);
+  color: #333;
+  font-weight: 600;
+}
