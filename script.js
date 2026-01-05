@@ -66,7 +66,6 @@ function setLanguage(lang) {
     card.innerHTML = `
       <img src="${tool.img}" alt="${tool.title[lang]}" class="tool-img">
       <h3>${tool.title[lang]}</h3>
-      <p>${tool.desc[lang]}</p>
     `;
     card.style.cursor = "pointer";
     card.onclick = () => {
@@ -85,52 +84,86 @@ const toolsData = [
   {
     id: 0,
     category: "dyslexia",
-    title: { en: "Tool A", ar: "الأداة أ" },
-    desc: {
-      en: "Helps students with Dyslexia improve reading.",
-      ar: "تساعد الطلاب الذين يعانون من عسر القراءة على تحسين مهارات القراءة.",
+    title: {
+      en: "Adaptive Arabic Memory App",
+      ar: "تطبيق الذاكرة العربية التكيفي",
     },
-    img: "images/tool-a.jpg",
+    desc: {
+      en: "Game-based application designed to improve short-term memory skills for Arabic-speaking students with dyslexia.",
+      ar: "تطبيق تعليمي قائم على الألعاب يهدف إلى تحسين الذاكرة قصيرة المدى للطلاب الناطقين بالعربية المصابين بعسر القراءة.",
+    },
+    img: "images/adaptive-arabic-memory-app.png",
+    url: "https://kuwaitjournals.org/jer/index.php/JER/article/view/7894/248",
   },
   {
     id: 1,
-    category: "dysgraphia",
-    title: { en: "Tool B", ar: "الأداة ب" },
-    desc: {
-      en: "Supports Dysgraphia with handwriting assistance.",
-      ar: "تدعم عسر الكتابة من خلال المساعدة في الكتابة اليدوية.",
+    category: "dysphasia",
+    title: {
+      en: "AAC Tablet Application",
+      ar: "تطبيق التواصل المعزز والبديل على الأجهزة اللوحية",
     },
-    img: "images/tool-b.jpg",
+    desc: {
+      en: "Picture-based AAC system supporting communication for individuals with dysphasia and language impairments.",
+      ar: "نظام تواصل معزز وبديل يعتمد على الصور لدعم الأفراد الذين يعانون من اضطرابات اللغة والكلام.",
+    },
+    img: "images/aac-tablet-application.png",
+    url: "https://kuwaitjournals.org/jer/index.php/JER/article/view/9201/1965",
   },
   {
     id: 2,
-    category: "dysphasia",
-    title: { en: "Tool C", ar: "الأداة ج" },
-    desc: {
-      en: "Speech support software for Dysphasia.",
-      ar: "برنامج جميل جدا دعم النطق لاضطراب الكلام.",
+    category: "dyslexia",
+    title: {
+      en: "Mobile Cloud Multimodal Interface",
+      ar: "واجهة متعددة الوسائط قائمة على الحوسبة السحابية",
     },
-    img: "images/tool-c.jpeg",
+    desc: {
+      en: "Reading support tool using multimodal inputs (visual, auditory, tactile) to assist learners with dyslexia.",
+      ar: "أداة دعم للقراءة تستخدم مدخلات متعددة الوسائط لمساعدة المتعلمين المصابين بعسر القراءة.",
+    },
+    img: "images/mobile-cloud-multimodal-interface.png",
+    url: "https://www.sciencedirect.com/science/article/pii/S0747563217303266",
   },
   {
     id: 3,
-    category: "auditory",
-    title: { en: "Tool D", ar: "الأداة د" },
-    desc: {
-      en: "Enhances listening for Auditory Processing Disorder.",
-      ar: "يعزز الاستماع لاضطراب المعالجة السمعية.",
+    category: "dyslexia",
+    title: {
+      en: "YUSR Speech Recognition",
+      ar: "نظام يسر للتعرف على الكلام",
     },
-    img: "images/tool-d.png",
+    desc: {
+      en: "Arabic speech recognition system designed to help dyslexic learners recognize and pronounce isolated letters.",
+      ar: "نظام للتعرف على الكلام باللغة العربية يهدف إلى مساعدة المصابين بعسر القراءة في نطق وتمييز الحروف.",
+    },
+    img: "images/yusr-speech-recognition.png",
+    url: "https://www.researchgate.net/profile/Mounira-Taileb/publication/299704852_YUSR_Speech_Recognition_Software_for_Dyslexics/links/5ff4ed90299bf1408874deb1/YUSR-Speech-Recognition-Software-for-Dyslexics.pdf",
   },
   {
     id: 4,
     category: "dyslexia",
-    title: { en: "Tool E", ar: "الأداة هـ" },
-    desc: {
-      en: "Another great app for Dyslexia learners.",
-      ar: "تطبيق آخر رائع لمساعدة متعلمي عسر القراءة.",
+    title: {
+      en: "Dyslexia Explorer",
+      ar: "مستكشف عسر القراءة",
     },
-    img: "images/tool-e.webp",
+    desc: {
+      en: "Eye-tracking based screening system for early detection of dyslexia in Arabic-speaking learners.",
+      ar: "نظام فحص يعتمد على تتبع حركة العين للكشف المبكر عن عسر القراءة لدى المتعلمين الناطقين بالعربية.",
+    },
+    img: "images/dyslexia-explorer.png",
+    url: "https://www.researchgate.net/profile/Areej-Al-Wabil/publication/255484479_Dyslexia_Explorer_A_Screening_System_for_Learning_Difficulties_in_the_Arabic_Language_Using_Eye_Tracking/links/575a923608aec91374a5f4ba/Dyslexia-Explorer-A-Screening-System-for-Learning-Difficulties-in-the-Arabic-Language-Using-Eye-Tracking.pdf",
+  },
+  {
+    id: 5,
+    category: "dysphasia",
+    title: {
+      en: "Qatari AAC Development (Tawasol)",
+      ar: "تطبيق تواصل القطري (تواصل)",
+    },
+    desc: {
+      en: "Culturally adapted Arabic AAC vocabulary developed in Qatar to support individuals with speech and language disorders.",
+      ar: "تطبيق تواصل معزز وبديل بمفردات عربية متوافقة ثقافيًا لدعم الأفراد ذوي اضطرابات النطق واللغة.",
+    },
+    img: "images/tawasol-aac.jpg",
+    url: "https://mip.mada.org.qa/solution/tawasol-aac-app/",
   },
 ];
 
