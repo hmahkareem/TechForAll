@@ -18,8 +18,26 @@ const translations = {
                     It focuses on tools supporting students with learning disabilities such as Dyslexia, Dysgraphia, Dysphasia, 
                     and Auditory Processing Disorder. The platform helps educators, parents, and students discover and share tools, 
                     experiences, and feedback, making assistive technologies more accessible and effective in improving learning outcomes.`,
+
+      // ✅ NEW: Accessibility + Tool Suggestion
+      accessibilityTitle: "Accessibility Statement",
+      accessibilityDesc: `Tech for All is developed with a strong commitment to digital accessibility and inclusive design. 
+                          The website follows the Web Content Accessibility Guidelines (WCAG) 2.1 to ensure content is perceivable, operable, 
+                          understandable, and robust for users with diverse abilities. Accessibility features include semantic HTML, keyboard navigation, 
+                          screen-reader support, appropriate color contrast, and bilingual (Arabic–English) support.`,
+      accessibilityContact: `If you experience any accessibility issues or encounter difficulties using the website, 
+                             please report them via email so they can be addressed in future updates.`,
+
+      suggestTitle: "Suggest an Assistive Technology Tool",
+      suggestDesc: `Educators, caregivers, researchers, and specialists are welcome to suggest assistive technology tools 
+                    that are not currently listed on the platform. Suggested tools should be relevant to learning disabilities and, where possible, 
+                    supported by practical use or research evidence. Community contributions play an important role in expanding and improving the platform.`,
+
+      contactEmailLabel: "Contact",
+      contactEmail: "h.mahkareem@gmail.com"
     },
   },
+
   ar: {
     pageTitle: "من أنا | التكنولوجيا للجميع",
     siteTitle: "التكنولوجيا للجميع",
@@ -38,6 +56,25 @@ const translations = {
                     يركز الموقع على الأدوات التي تدعم الطلاب من ذوي صعوبات التعلم مثل عسر القراءة، عسر الكتابة، اضطراب الكلام، 
                     واضطراب المعالجة السمعية. يهدف الموقع إلى مساعدة المعلمين وأولياء الأمور والطلاب في اكتشاف الأدوات المناسبة، 
                     وتبادل الخبرات والتجارب، مما يجعل التقنيات المساعدة أكثر سهولة وفعالية في تحسين العملية التعليمية.`,
+
+      // ✅ NEW: Accessibility + Tool Suggestion
+      accessibilityTitle: "بيان إمكانية الوصول",
+      accessibilityDesc: `تم تطوير منصة "التكنولوجيا للجميع" مع التزام واضح بإمكانية الوصول الرقمي والتصميم الشامل. 
+                          يلتزم الموقع بإرشادات الوصول إلى محتوى الويب (WCAG 2.1) لضمان أن يكون المحتوى قابلاً للإدراك، 
+                          وقابلاً للتشغيل، وسهل الفهم، ومتوافقًا مع التقنيات المساعدة لمختلف المستخدمين. 
+                          تشمل ميزات الوصول استخدام عناصر HTML الدلالية، ودعم التنقل باستخدام لوحة المفاتيح، 
+                          ودعم قارئات الشاشة، وتباين ألوان مناسب، ودعم ثنائي اللغة (العربية – الإنجليزية).`,
+      accessibilityContact: `في حال واجهت أي صعوبات تتعلق بإمكانية الوصول أو استخدام الموقع، 
+                             نرجو الإبلاغ عنها عبر البريد الإلكتروني ليتم العمل على تحسينها في التحديثات المستقبلية.`,
+
+      suggestTitle: "اقتراح أداة تقنية مساعدة",
+      suggestDesc: `نرحب بمقترحات المعلمين، وأولياء الأمور، والباحثين، والمتخصصين لإضافة أدوات تقنية مساعدة 
+                    غير مدرجة حاليًا في المنصة. يُفضل أن تكون الأدوات المقترحة ذات صلة بصعوبات التعلم 
+                    ومدعومة بتجربة عملية أو بحث علمي إن أمكن. 
+                    تُعد مساهمات المجتمع عنصرًا أساسيًا في تطوير وتوسيع محتوى المنصة.`,
+
+      contactEmailLabel: "للتواصل",
+      contactEmail: "h.mahkareem@gmail.com"
     },
   },
 };
@@ -53,26 +90,47 @@ function setLanguage(lang) {
 
   const t = translations[lang];
   document.title = t.pageTitle;
-  document.getElementById("site-title").innerText = t.siteTitle;
+
+  const siteTitleEl = document.getElementById("site-title");
+  if (siteTitleEl) siteTitleEl.innerText = t.siteTitle;
 
   // Update nav buttons
-  document.getElementById("homeBtn").innerText = t.home;
-  document.getElementById("aboutBtn").innerText = t.aboutbtn;
+  const homeBtnEl = document.getElementById("homeBtn");
+  if (homeBtnEl) homeBtnEl.innerText = t.home;
+
+  const aboutBtnEl = document.getElementById("aboutBtn");
+  if (aboutBtnEl) aboutBtnEl.innerText = t.aboutbtn;
 
   const container = document.querySelector(".about-card");
+  if (!container) return;
+
   container.innerHTML = `
     <img src="images/me.jpg" alt="${t.about.heading}" class="about-photo">
     <h2>${t.about.heading}</h2>
     <p>${t.about.intro}</p>
+
     <h3>${t.about.projectTitle}</h3>
     <p>${t.about.projectDesc}</p>
+
+    <h3>${t.about.accessibilityTitle}</h3>
+    <p>${t.about.accessibilityDesc}</p>
+    <p>${t.about.accessibilityContact}</p>
+
+    <h3>${t.about.suggestTitle}</h3>
+    <p>${t.about.suggestDesc}</p>
+
+    <p><strong>${t.about.contactEmailLabel}:</strong> 
+      <a href="mailto:${t.about.contactEmail}">${t.about.contactEmail}</a>
+    </p>
   `;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   const langSwitcher = document.getElementById("languageSwitcher");
-  langSwitcher.value = currentLang;
-  langSwitcher.addEventListener("change", (e) => setLanguage(e.target.value));
+  if (langSwitcher) {
+    langSwitcher.value = currentLang;
+    langSwitcher.addEventListener("change", (e) => setLanguage(e.target.value));
+  }
 
   setLanguage(currentLang);
 });
