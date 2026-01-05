@@ -32,53 +32,6 @@ const translations = {
 // load saved language or default to "ar"
 let currentLang = localStorage.getItem("lang") || "ar";
 
-function setLanguage(lang) {
-  currentLang = lang;
-  localStorage.setItem("lang", lang); // save choice
-  document.documentElement.lang = lang;
-  document.body.style.direction = lang === "ar" ? "rtl" : "ltr";
-
-  const t = translations[lang];
-  document.title = t.pageTitle;
-  document.getElementById("site-title").innerText = t.siteTitle;
-  document.getElementById("searchBar").placeholder = t.searchPlaceholder;
-  document.getElementById("homeBtn").innerText = t.nav.home;
-  document.getElementById("aboutBtn").innerText = t.nav.about;
-
-  // Categories
-  const categoriesContainer = document.getElementById("categoryButtons");
-  categoriesContainer.innerHTML = "";
-  Object.entries(t.categories).forEach(([key, label], index) => {
-    const btn = document.createElement("button");
-    btn.innerText = label;
-    btn.dataset.key = key;
-    btn.onclick = () => filterCategory(key, btn);
-    if (index === 0) btn.classList.add("active");
-    categoriesContainer.appendChild(btn);
-  });
-
-  // Tools grid
-  const toolsList = document.getElementById("toolsList");
-  toolsList.innerHTML = "";
-  toolsData.forEach((tool) => {
-    const card = document.createElement("div");
-    card.className = `tool-card ${tool.category}`;
-    card.innerHTML = `
-      <img src="${tool.img}" alt="${tool.title[lang]}" class="tool-img">
-      <h3>${tool.title[lang]}</h3>
-    `;
-    card.style.cursor = "pointer";
-    card.onclick = () => {
-      window.location.href = `tool.html?id=${tool.id}`;
-    };
-    toolsList.appendChild(card);
-  });
-
-  // set dropdown to match current language
-  const langSwitcher = document.getElementById("languageSwitcher");
-  if (langSwitcher) langSwitcher.value = lang;
-}
-
 // ---------------- HARD-CODED TOOLS ----------------
 const toolsData = [
   {
@@ -133,7 +86,7 @@ const toolsData = [
     desc: {
       en: "Arabic speech recognition system designed to help dyslexic learners recognize and pronounce isolated letters.",
       ar: "نظام للتعرف على الكلام باللغة العربية يهدف إلى مساعدة المصابين بعسر القراءة في نطق وتمييز الحروف.",
-    },
+      },
     img: "images/yusr-speech-recognition.png",
     url: "https://www.researchgate.net/profile/Mounira-Taileb/publication/299704852_YUSR_Speech_Recognition_Software_for_Dyslexics/links/5ff4ed90299bf1408874deb1/YUSR-Speech-Recognition-Software-for-Dyslexics.pdf",
   },
@@ -167,35 +120,118 @@ const toolsData = [
   },
 ];
 
+// ---------------- STATE ----------------
+let activeCategory = "all";
+let searchTerm = "";
+
+// ---------------- RENDER HELPERS ----------------
+function renderTools() {
+  const toolsList = document.getElementById("toolsList");
+  toolsList.innerHTML = "";
+
+  const lang = currentLang;
+  const t = translations[lang];
+
+  toolsData.forEach((tool) => {
+    // filter by active category
+    const matchesCategory = activeCategory === "all" || tool.category === activeCategory;
+
+    // search includes: title (en/ar), category key, category label (en/ar for current lang)
+    const titleEn = tool.title.en.toLowerCase();
+    const titleAr = tool.title.ar.toLowerCase();
+    const categoryKey = (tool.category || "").toLowerCase();
+    const categoryLabel = (t.categories[tool.category] || tool.category).toLowerCase();
+    const term = searchTerm.toLowerCase().trim();
+
+    const matchesSearch =
+      !term ||
+      titleEn.includes(term) ||
+      titleAr.includes(term) ||
+      categoryKey.includes(term) ||
+      categoryLabel.includes(term);
+
+    if (!matchesCategory || !matchesSearch) return;
+
+    const card = document.createElement("div");
+    card.className = `tool-card ${tool.category}`;
+
+    // store searchable data (optional but handy)
+    card.dataset.categoryKey = tool.category;
+    card.dataset.categoryLabel = t.categories[tool.category] || tool.category;
+
+    card.innerHTML = `
+      <img src="${tool.img}" alt="${tool.title[lang]}" class="tool-img">
+      <h3>${tool.title[lang]}</h3>
+    `;
+
+    card.style.cursor = "pointer";
+    card.onclick = () => {
+      window.location.href = `tool.html?id=${tool.id}`;
+    };
+
+    toolsList.appendChild(card);
+  });
+}
+
+function renderCategories() {
+  const t = translations[currentLang];
+  const categoriesContainer = document.getElementById("categoryButtons");
+  categoriesContainer.innerHTML = "";
+
+  Object.entries(t.categories).forEach(([key, label], index) => {
+    const btn = document.createElement("button");
+    btn.innerText = label;
+    btn.dataset.key = key;
+
+    if (key === activeCategory || (index === 0 && activeCategory === "all")) {
+      btn.classList.add("active");
+    }
+
+    btn.onclick = () => filterCategory(key, btn);
+    categoriesContainer.appendChild(btn);
+  });
+}
+
+// ---------------- LANGUAGE ----------------
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem("lang", lang); // save choice
+  document.documentElement.lang = lang;
+  document.body.style.direction = lang === "ar" ? "rtl" : "ltr";
+
+  const t = translations[lang];
+  document.title = t.pageTitle;
+  document.getElementById("site-title").innerText = t.siteTitle;
+  document.getElementById("searchBar").placeholder = t.searchPlaceholder;
+  document.getElementById("homeBtn").innerText = t.nav.home;
+  document.getElementById("aboutBtn").innerText = t.nav.about;
+
+  // ✅ Re-render categories + tools (keeps search/category working)
+  renderCategories();
+  renderTools();
+
+  // set dropdown to match current language
+  const langSwitcher = document.getElementById("languageSwitcher");
+  if (langSwitcher) langSwitcher.value = lang;
+}
+
 // ---------------- SEARCH ----------------
 document.getElementById("searchBar").addEventListener("keyup", (e) => {
-  const term = e.target.value.toLowerCase();
-  document.querySelectorAll(".tool-card").forEach((card) => {
-    const text = card.innerText.toLowerCase();
-    card.style.display = text.includes(term) ? "block" : "none";
-  });
-
-  // Reset category
-  document
-    .querySelectorAll(".categories button")
-    .forEach((btn) => btn.classList.remove("active"));
-  const firstBtn = document.querySelector(".categories button");
-  if (firstBtn) firstBtn.classList.add("active");
+  searchTerm = e.target.value || "";
+  // ✅ DO NOT reset category; combine filters naturally
+  renderTools();
 });
 
 // ---------------- CATEGORY FILTER ----------------
 function filterCategory(category, button) {
-  document.querySelectorAll(".tool-card").forEach((card) => {
-    card.style.display =
-      category === "all" || card.classList.contains(category)
-        ? "block"
-        : "none";
-  });
+  activeCategory = category;
 
   document
     .querySelectorAll(".categories button")
     .forEach((btn) => btn.classList.remove("active"));
-  button.classList.add("active");
+  if (button) button.classList.add("active");
+
+  renderTools();
 }
 
 // ---------------- INIT ----------------
@@ -205,5 +241,7 @@ window.addEventListener("DOMContentLoaded", () => {
     langSwitcher.value = currentLang;
     langSwitcher.addEventListener("change", (e) => setLanguage(e.target.value));
   }
+
+  // initial render
   setLanguage(currentLang);
 });
