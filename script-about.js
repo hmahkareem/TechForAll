@@ -6,12 +6,7 @@ const translations = {
     aboutbtn: "About",
     about: {
       heading: "Hussain Mahkareem",
-      intro: `I am Hussain Mahkareem, a Software Engineering graduate from Rochester Institute of Technology (RIT), New York (2018). 
-              I have over seven years of experience in IT and application support within the banking sector in Kuwait, 
-              where I worked extensively with enterprise systems and user experience improvements. 
-              Currently, I am pursuing a Master’s degree in Computer Information Systems at Kuwait University. 
-              This project represents my graduation thesis and reflects my passion for supporting individuals with special needs 
-              through technology and UX design.`,
+      intro: `I am Hussain Mahkareem, a Software Engineering graduate from Rochester Institute of Technology (RIT), New York, with extensive professional experience in IT and application support within the banking sector in Kuwait. My background includes working with enterprise systems, platform support, and user experience improvements in mission-critical environments. I also hold a Master’s degree in Computing Information Systems from Kuwait University, with academic and applied work focused on accessibility, assistive technology, and inclusive digital design. My projects and professional interests reflect a strong commitment to leveraging technology to support individuals with special needs and to building accessible, user-centered digital solutions.`,
       projectTitle: "About this Website",
       projectDesc: `This website, Tech for All, is designed as a centralized bilingual platform (Arabic–English) 
                     to gather and present assistive technologies available in Kuwait and across the GCC. 
@@ -45,11 +40,7 @@ const translations = {
     aboutbtn: "من أنا",
     about: {
       heading: "حسين ماه كريم",
-      intro: `أنا حسين ماه كريم، خريج هندسة البرمجيات من معهد روتشستر للتكنولوجيا (RIT) – نيويورك عام 2018. 
-              أعمل منذ أكثر من سبع سنوات في مجال تكنولوجيا المعلومات ودعم التطبيقات في القطاع المصرفي في الكويت، 
-              حيث اكتسبت خبرة واسعة في الأنظمة المؤسسية وتحسين تجربة المستخدم. 
-              حاليًا أتابع دراساتي العليا كطالب ماجستير في نظم المعلومات الحاسوبية بجامعة الكويت، 
-              وهذا المشروع يمثل مشروع تخرجي ويعكس شغفي بدعم ذوي الاحتياجات الخاصة من خلال التكنولوجيا وتصميم تجربة المستخدم.`,
+      intro: `أنا حسين ماه كريم، حاصل على درجة البكالوريوس في هندسة البرمجيات من معهد روتشستر للتكنولوجيا (RIT) في نيويورك، ولدي خبرة مهنية واسعة في مجال دعم تقنية المعلومات والتطبيقات ضمن القطاع المصرفي في دولة الكويت. تشمل خبرتي العمل على الأنظمة المؤسسية، ودعم المنصات التشغيلية، وتحسين تجربة المستخدم في بيئات عمل حرجة.كما حصلت على درجة الماجستير في نظم معلومات الحاسوب من جامعة الكويت، حيث ركزت أعمالي الأكاديمية والتطبيقية على مجالات إمكانية الوصول، والتقنيات المساندة، والتصميم الرقمي الشامل. وتعكس مشاريعي واهتماماتي المهنية التزامًا واضحًا بتوظيف التكنولوجيا لدعم الأشخاص ذوي الاحتياجات الخاصة وبناء حلول رقمية تتمحور حول المستخدم وتراعي مبادئ الوصول الشامل.`,
       projectTitle: "عن هذا الموقع",
       projectDesc: `تم إنشاء موقع "التكنولوجيا للجميع" كمنصة ثنائية اللغة (العربية – الإنجليزية) 
                     تجمع وتعرض جميع التقنيات المساعدة المتاحة في الكويت ودول مجلس التعاون الخليجي. 
@@ -106,7 +97,17 @@ function setLanguage(lang) {
 
   container.innerHTML = `
     <img src="images/me.jpg" alt="${t.about.heading}" class="about-photo">
-    <h2>${t.about.heading}</h2>
+    <h2 class="about-name">
+  <a
+    href="https://hmahkareem.github.io/Resume/"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="resume-link"
+  >
+    ${t.about.heading}
+  </a>
+</h2>
+
     <p>${t.about.intro}</p>
 
     <h3>${t.about.projectTitle}</h3>
